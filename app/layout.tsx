@@ -1,42 +1,34 @@
 import type React from "react"
+import "@/app/globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { WalletProvider } from "@/components/wallet-provider"
-import { Toaster } from "@/components/ui/toaster"
 import Navbar from "@/components/navbar"
-
-// Remove the dynamic import for AnimationProvider
-// const AnimationProviderNoSSR = dynamic(
-//   () => import("@/components/animation-provider").then((mod) => mod.AnimationProvider),
-//   { ssr: false },
-// )
+import { WalletProvider } from "@/components/wallet-provider"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "RePlas - Decentralized Plastic Waste Management",
-  description: "Tokenizing plastic waste traceability on Celo blockchain with AI-powered analytics",
+  title: "RePlas - Blockchain Plastic Recycling Platform",
+  description: "Track, trace, and transform plastic waste into value on the blockchain.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
     generator: 'v0.dev'
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <WalletProvider>
-            {/* Remove AnimationProvider from layout - it will be used only in client components */}
-            <div className="flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen flex-col">
               <Navbar />
-              <main className="flex-1">{children}</main>
+              {children}
             </div>
-            <Toaster />
           </WalletProvider>
         </ThemeProvider>
       </body>

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -31,6 +30,7 @@ import {
   Users,
 } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Logo } from "@/components/logo"
 
 export default function Navbar() {
   const { address, balance, isConnected, isConnecting, connect, disconnect } = useWallet()
@@ -104,8 +104,7 @@ export default function Navbar() {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
-            <Image src="/logo.png" alt="RePlas Logo" width={32} height={32} className="h-8 w-8" />
-            <span className="text-xl font-bold">RePlas</span>
+            <Logo size="sm" />
           </Link>
         </div>
 
@@ -208,10 +207,7 @@ export default function Navbar() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between py-4 border-b">
-                  <div className="flex items-center gap-2">
-                    <Image src="/logo.png" alt="RePlas Logo" width={24} height={24} className="h-6 w-6" />
-                    <span className="font-bold">RePlas</span>
-                  </div>
+                  <Logo size="xs" />
                 </div>
 
                 <nav className="flex-1 overflow-auto py-6">

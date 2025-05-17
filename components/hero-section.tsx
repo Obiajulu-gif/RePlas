@@ -1,17 +1,17 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Play } from "lucide-react"
+import { ArrowRight, Play, ChevronDown } from "lucide-react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Logo } from "@/components/logo"
 
 export default function HeroSection() {
   const [videoOpen, setVideoOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     // Trigger the animation after component mounts
@@ -19,13 +19,21 @@ export default function HeroSection() {
       setIsVisible(true)
     }, 100)
 
-    return () => clearTimeout(timer)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [])
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30 py-20 md:py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/30 py-20 md:py-28 lg:py-36">
       {/* Background pattern */}
-      <div className="absolute inset-0 -z-10 opacity-20 animate-pulse">
+      <div className="absolute inset-0 -z-10 opacity-20">
         <svg
           className="h-full w-full"
           xmlns="http://www.w3.org/2000/svg"
@@ -43,23 +51,37 @@ export default function HeroSection() {
         </svg>
       </div>
 
+      {/* Floating elements */}
+      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-primary/10 animate-pulse-subtle opacity-70"></div>
+      <div
+        className="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-primary/20 animate-pulse-subtle opacity-70"
+        style={{ animationDelay: "1s" }}
+      ></div>
+      <div
+        className="absolute top-40 right-20 w-12 h-12 rounded-full bg-primary/15 animate-pulse-subtle opacity-70"
+        style={{ animationDelay: "2s" }}
+      ></div>
+
       <div className="container">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
           <div className={`flex flex-col gap-6 ${isVisible ? "fade-in-left" : "opacity-0"}`}>
+            <div className="flex items-center gap-3 mb-2">
+              <Logo size="lg" />
+            </div>
             <div>
-              <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+              <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
                 Powered by Celo Blockchain
-              </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
-                Revolutionizing Plastic Waste Management with Blockchain and AI
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+                Revolutionizing Plastic Waste Management
               </h1>
               <p className="text-xl text-muted-foreground">
-                Track, Trace, and Transform Plastic Waste into Value on the Celo Network.
+                Track, Trace, and Transform Plastic Waste into Value on the Blockchain.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="group animate-bounce-subtle">
+              <Button size="lg" asChild className="group bg-primary hover:bg-primary/90">
                 <Link href="/signup">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -110,6 +132,7 @@ export default function HeroSection() {
           <div
             className={`relative aspect-video rounded-xl overflow-hidden shadow-2xl ${isVisible ? "fade-in-right" : "opacity-0"}`}
           >
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10"></div>
             <Image
               src="/sustainable-recycling-hero.png"
               alt="Plastic waste management with blockchain technology"
@@ -117,8 +140,39 @@ export default function HeroSection() {
               className="object-cover transition-transform hover:scale-105 duration-700"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+            <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm p-4 rounded-lg z-20">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
+                  <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-medium">Transparent Supply Chain</h3>
+                  <p className="text-sm text-muted-foreground">Track plastic from collection to recycling</p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div
+          className={`flex justify-center mt-16 ${scrolled ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
+        >
+          <Button
+            variant="ghost"
+            size="sm"
+            className="animate-bounce-subtle"
+            onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: "smooth",
+              })
+            }}
+          >
+            <ChevronDown className="h-5 w-5" />
+            <span className="sr-only">Scroll down</span>
+          </Button>
         </div>
       </div>
 
@@ -138,16 +192,5 @@ export default function HeroSection() {
         </DialogContent>
       </Dialog>
     </section>
-  )
-}
-
-function Badge({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${className}`}
-      {...props}
-    >
-      {children}
-    </div>
   )
 }
