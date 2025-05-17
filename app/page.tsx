@@ -88,6 +88,11 @@ function ImagePreloader() {
     "/user-avatar-2.jpg",
     "/user-avatar-3.jpg",
     "/logo.png",
+    "/recycling-process-diagram.png",
+    "/track-icon.png",
+    "/trace-icon.png",
+    "/transform-icon.png",
+    "/reward-icon.png",
   ]
 
   useEffect(() => {

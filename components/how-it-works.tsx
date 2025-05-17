@@ -1,7 +1,6 @@
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { AnimatedElement } from "@/components/animation-provider"
-import RecyclingProcessVisualization from "@/components/3d-recycling-process"
 
 export default function HowItWorks() {
   const steps = [
@@ -95,9 +94,16 @@ export default function HowItWorks() {
           ))}
         </div>
 
-        <AnimatedElement id="recycling-3d-visualization" animation="fade-in-up" delay={400} className="mt-16">
+        <AnimatedElement id="recycling-visualization" animation="fade-in-up" delay={400} className="mt-16">
           <div className="bg-card rounded-xl overflow-hidden shadow-xl">
-            <RecyclingProcessVisualization />
+            <div className="aspect-video relative">
+              <Image
+                src="/recycling-process-diagram.png"
+                alt="Recycling Process Visualization"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
           <p className="text-center text-muted-foreground mt-4 max-w-2xl mx-auto">
             Our platform connects all stakeholders in the plastic value chain, from producers to recyclers to consumers,
