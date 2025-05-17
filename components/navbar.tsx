@@ -28,6 +28,8 @@ import {
   MessageSquare,
   Award,
   Users,
+  BookOpen,
+  Boxes,
 } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ErrorBoundary } from "@/components/error-boundary"
@@ -75,12 +77,17 @@ export default function Navbar() {
       href: "/submit",
       icon: Upload,
     },
+    {
+      title: "Batch Tracking",
+      href: "/batch-tracking",
+      icon: Boxes,
+    },
   ]
 
   const communityNavItems = [
     {
-      title: "Chat Assistant",
-      href: "/chat",
+      title: "Community Forum",
+      href: "/community",
       icon: MessageSquare,
     },
     {
@@ -89,9 +96,9 @@ export default function Navbar() {
       icon: Award,
     },
     {
-      title: "Community",
-      href: "/community",
-      icon: Users,
+      title: "Learn",
+      href: "/learn",
+      icon: BookOpen,
     },
   ]
 
