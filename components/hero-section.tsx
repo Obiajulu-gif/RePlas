@@ -1,17 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, ChevronDown } from "lucide-react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Logo } from "@/components/logo"
+import { SafeImage } from "@/components/ui/safe-image"
 
 export default function HeroSection() {
   const [videoOpen, setVideoOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
 
   useEffect(() => {
     // Trigger the animation after component mounts
@@ -23,9 +23,41 @@ export default function HeroSection() {
       setScrolled(window.scrollY > 50)
     }
 
+    // Preload critical images
+    const imageUrls = [
+      "/sustainable-recycling-hero.png",
+      "/user-avatar-1.jpg",
+      "/user-avatar-2.jpg",
+      "/user-avatar-3.jpg",
+    ]
+
+    let loadedCount = 0
+    const totalImages = imageUrls.length
+
+    imageUrls.forEach((url) => {
+      const img = new Image()
+      img.onload = () => {
+        loadedCount++
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true)
+        }
+      }
+      img.onerror = () => {
+        loadedCount++
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true)
+        }
+      }
+      img.src = url
+    })
+
+    // Set loaded to true after a timeout in case images fail to load
+    const imageTimeout = setTimeout(() => setImagesLoaded(true), 3000)
+
     window.addEventListener("scroll", handleScroll)
     return () => {
       clearTimeout(timer)
+      clearTimeout(imageTimeout)
       window.removeEventListener("scroll", handleScroll)
     }
   }, [])
@@ -65,7 +97,6 @@ export default function HeroSection() {
       <div className="container">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
           <div className={`flex flex-col gap-6 ${isVisible ? "fade-in-left" : "opacity-0"}`}>
-            
             <div>
               <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
                 Powered by Celo Blockchain
@@ -98,21 +129,21 @@ export default function HeroSection() {
 
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
-                <Image
+                <SafeImage
                   src="/user-avatar-1.jpg"
                   alt="User"
                   width={32}
                   height={32}
                   className="rounded-full border-2 border-background"
                 />
-                <Image
+                <SafeImage
                   src="/user-avatar-2.jpg"
                   alt="User"
                   width={32}
                   height={32}
                   className="rounded-full border-2 border-background"
                 />
-                <Image
+                <SafeImage
                   src="/user-avatar-3.jpg"
                   alt="User"
                   width={32}
@@ -131,13 +162,17 @@ export default function HeroSection() {
             className={`relative aspect-video rounded-xl overflow-hidden shadow-2xl ${isVisible ? "fade-in-right" : "opacity-0"}`}
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10"></div>
-            <Image
-              src="/sustainable-recycling-hero.png"
-              alt="Plastic waste management with blockchain technology"
-              fill
-              className="object-cover transition-transform hover:scale-105 duration-700"
-              priority
-            />
+            {imagesLoaded ? (
+              <SafeImage
+                src="/sustainable-recycling-hero.png"
+                alt="Plastic waste management with blockchain technology"
+                fill
+                className="object-cover transition-transform hover:scale-105 duration-700"
+                priority
+              />
+            ) : (
+              <div className="w-full h-full bg-muted animate-pulse"></div>
+            )}
             <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm p-4 rounded-lg z-20">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">

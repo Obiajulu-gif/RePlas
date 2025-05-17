@@ -1,4 +1,4 @@
-import Image from "next/image"
+import { SafeImage } from "@/components/ui/safe-image"
 import { AnimatedElement } from "@/components/animation-provider"
 
 export default function PartnersSection() {
@@ -48,12 +48,13 @@ export default function PartnersSection() {
               delay={index * 100}
               className="flex justify-center"
             >
-              <Image
-                src={partner.logo || "/placeholder.svg"}
+              <SafeImage
+                src={partner.logo}
                 alt={partner.name}
                 width={180}
                 height={60}
                 className="h-12 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all hover:scale-110 duration-300"
+                fallbackSrc="/placeholder.svg"
               />
             </AnimatedElement>
           ))}

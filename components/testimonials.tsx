@@ -1,9 +1,10 @@
 "use client"
 
-import Image from "next/image"
+import { SafeImage } from "@/components/ui/safe-image"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 import { AnimatedElement } from "@/components/animation-provider"
+import { ErrorBoundary } from "@/components/error-boundary"
 
 export default function Testimonials() {
   const testimonials = [
@@ -59,54 +60,57 @@ export default function Testimonials() {
         </AnimatedElement>
 
         <AnimatedElement id="testimonials-carousel" animation="fade-in-up" delay={200}>
-          <Carousel className="max-w-5xl mx-auto">
-            <CarouselContent>
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 p-4">
-                  <Card className="h-full transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
-                    <CardContent className="pt-6">
-                      <div className="mb-4">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <svg
-                            key={star}
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="inline-block h-5 w-5 text-yellow-500 animate-pulse-subtle"
-                            style={{ animationDelay: `${star * 0.1}s` }}
-                          >
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                          </svg>
-                        ))}
-                      </div>
-                      <blockquote className="text-muted-foreground italic mb-6">"{testimonial.quote}"</blockquote>
-                    </CardContent>
-                    <CardFooter>
-                      <div className="flex items-center gap-3">
-                        <Image
-                          src={testimonial.avatar || "/placeholder.svg"}
-                          alt={testimonial.name}
-                          width={48}
-                          height={48}
-                          className="rounded-full transition-transform hover:scale-110 duration-300"
-                        />
-                        <div>
-                          <p className="font-medium">{testimonial.name}</p>
-                          <p className="text-xs text-muted-foreground">{testimonial.title}</p>
+          <ErrorBoundary>
+            <Carousel className="max-w-5xl mx-auto">
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 p-4">
+                    <Card className="h-full transition-all hover:shadow-lg hover:-translate-y-1 duration-300">
+                      <CardContent className="pt-6">
+                        <div className="mb-4">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <svg
+                              key={star}
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="inline-block h-5 w-5 text-yellow-500 animate-pulse-subtle"
+                              style={{ animationDelay: `${star * 0.1}s` }}
+                            >
+                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                          ))}
                         </div>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center mt-8">
-              <CarouselPrevious className="relative static translate-y-0 mr-2 transition-transform hover:scale-110 duration-300" />
-              <CarouselNext className="relative static translate-y-0 transition-transform hover:scale-110 duration-300" />
-            </div>
-          </Carousel>
+                        <blockquote className="text-muted-foreground italic mb-6">"{testimonial.quote}"</blockquote>
+                      </CardContent>
+                      <CardFooter>
+                        <div className="flex items-center gap-3">
+                          <SafeImage
+                            src={testimonial.avatar}
+                            alt={testimonial.name}
+                            width={48}
+                            height={48}
+                            className="rounded-full transition-transform hover:scale-110 duration-300"
+                            fallbackSrc="/placeholder.svg"
+                          />
+                          <div>
+                            <p className="font-medium">{testimonial.name}</p>
+                            <p className="text-xs text-muted-foreground">{testimonial.title}</p>
+                          </div>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-8">
+                <CarouselPrevious className="relative static translate-y-0 mr-2 transition-transform hover:scale-110 duration-300" />
+                <CarouselNext className="relative static translate-y-0 transition-transform hover:scale-110 duration-300" />
+              </div>
+            </Carousel>
+          </ErrorBoundary>
         </AnimatedElement>
       </div>
     </section>
