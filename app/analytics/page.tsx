@@ -2,17 +2,13 @@
 
 import React from "react"
 
-import { Suspense, lazy, useState, useMemo, useCallback } from "react"
+import { Suspense, useState, useMemo, useCallback } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Leaf, Droplets, Recycle, TrendingUp, Award, Calendar } from "lucide-react"
-
-// Lazy load chart components
-const BarChart = lazy(() => import("@/components/ui/chart").then((mod) => ({ default: mod.BarChart })))
-const LineChart = lazy(() => import("@/components/ui/chart").then((mod) => ({ default: mod.LineChart })))
-const PieChart = lazy(() => import("@/components/ui/chart").then((mod) => ({ default: mod.PieChart })))
+import { BarChart, LineChart, PieChart } from "@/components/ui/chart"
 
 // Chart loading fallback
 function ChartSkeleton() {

@@ -290,7 +290,6 @@ export default function CommunityPage() {
             ))}
           </div>
         </TabsContent>
-        tent>
         <TabsContent value="community" className="space-y-4">
           <div className="space-y-4">
             {communityPosts.map((post) => (
