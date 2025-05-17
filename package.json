@@ -59,7 +59,6 @@
     "react-day-picker": "8.10.1",
     "react-dom": "^19",
     "react-hook-form": "latest",
-    "react-intersection-observer": "latest",
     "react-native": "latest",
     "react-resizable-panels": "^2.1.7",
     "recharts": "2.15.0",

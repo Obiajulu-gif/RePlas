@@ -1,16 +1,90 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import type React from "react"
 
-// Utility to clean up WebGL context when component unmounts
-export function useWebGLCleanup(canvasRef) {
+import type * as THREE from "three"
+import { useRef, useEffect } from "react"
+import { useFrame } from "@react-three/fiber"
+
+// Simple geometry cache
+const geometryCache: Record<string, THREE.BufferGeometry> = {}
+
+export function getCachedGeometry(key: string, createGeometry: () => THREE.BufferGeometry): THREE.BufferGeometry {
+  if (!geometryCache[key]) {
+    geometryCache[key] = createGeometry()
+  }
+  return geometryCache[key]
+}
+
+// Simple material cache
+const materialCache: Record<string, THREE.Material> = {}
+
+export function getCachedMaterial(key: string, createMaterial: () => THREE.Material): THREE.Material {
+  if (!materialCache[key]) {
+    materialCache[key] = createMaterial()
+  }
+  return materialCache[key]
+}
+
+// Dispose Three.js object and its children
+export function disposeObject3D(object: THREE.Object3D): void {
+  if (!object) return
+
+  // Handle children first
+  const children = [...object.children]
+  for (const child of children) {
+    disposeObject3D(child)
+  }
+
+  // Handle geometries and materials
+  if ((object as THREE.Mesh).geometry) {
+    ;(object as THREE.Mesh).geometry.dispose()
+  }
+
+  if ((object as THREE.Mesh).material) {
+    const materials = Array.isArray((object as THREE.Mesh).material)
+      ? (object as THREE.Mesh).material
+      : [(object as THREE.Mesh).material]
+
+    for (const material of materials) {
+      for (const key in material) {
+        const value = material[key]
+        if (value && typeof value.dispose === "function") {
+          value.dispose()
+        }
+      }
+      material.dispose()
+    }
+  }
+
+  // Remove from parent
+  if (object.parent) {
+    object.parent.remove(object)
+  }
+}
+
+// Hook for throttled rendering
+export function useThrottledRender(fps = 30) {
+  const lastRenderTimeRef = useRef(0)
+
+  return (currentTime: number) => {
+    const interval = 1 / fps
+    if (currentTime - lastRenderTimeRef.current >= interval) {
+      lastRenderTimeRef.current = currentTime
+      return true
+    }
+    return false
+  }
+}
+
+// Hook for cleaning up WebGL context
+export function useWebGLCleanup(canvasRef: React.RefObject<HTMLCanvasElement>) {
   useEffect(() => {
     return () => {
-      if (canvasRef.current) {
-        const canvas = canvasRef.current
-        const gl = canvas.getContext("webgl") || canvas.getContext("webgl2")
-        if (gl) {
-          const loseContext = gl.getExtension("WEBGL_lose_context")
+      if (typeof window !== "undefined" && canvasRef.current) {
+        const context = canvasRef.current.getContext("webgl") || canvasRef.current.getContext("webgl2")
+        if (context) {
+          const loseContext = context.getExtension("WEBGL_lose_context")
           if (loseContext) loseContext.loseContext()
         }
       }
@@ -18,81 +92,17 @@ export function useWebGLCleanup(canvasRef) {
   }, [canvasRef])
 }
 
-// Utility to limit animation frame rate for better performance
-export function useLimitedAnimation(callback, fps = 30) {
-  const requestRef = useRef(null)
-  const previousTimeRef = useRef(0)
-  const intervalRef = useRef(1000 / fps)
+// Hook for limiting animations
+export function useLimitedAnimation(callback: (delta: number) => void, fps = 30) {
+  const lastTimeRef = useRef(0)
 
-  useEffect(() => {
-    const animate = (time) => {
-      if (time - previousTimeRef.current > intervalRef.current) {
-        callback()
-        previousTimeRef.current = time
-      }
-      requestRef.current = requestAnimationFrame(animate)
-    }
+  useFrame((state, delta) => {
+    const currentTime = state.clock.getElapsedTime()
+    const interval = 1 / fps
 
-    requestRef.current = requestAnimationFrame(animate)
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current)
-      }
-    }
-  }, [callback, fps])
-}
-
-// Utility to create a debounced function
-export function debounce(func, wait) {
-  let timeout
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout)
-      func(...args)
-    }
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-  }
-}
-
-// Utility to detect WebGL support
-export function isWebGLSupported() {
-  try {
-    const canvas = document.createElement("canvas")
-    return !!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")))
-  } catch (e) {
-    return false
-  }
-}
-
-// Utility to optimize Three.js performance
-export function optimizeThreeJS(scene, renderer) {
-  // Set renderer pixel ratio with a maximum of 2
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
-  // Traverse scene and optimize objects
-  scene.traverse((object) => {
-    // Disable frustum culling for small scenes
-    if (object.isMesh) {
-      object.frustumCulled = false
+    if (currentTime - lastTimeRef.current >= interval) {
+      callback(delta)
+      lastTimeRef.current = currentTime
     }
   })
-
-  return () => {
-    // Cleanup function
-    scene.traverse((object) => {
-      if (object.isMesh) {
-        if (object.geometry) {
-          object.geometry.dispose()
-        }
-        if (object.material) {
-          if (Array.isArray(object.material)) {
-            object.material.forEach((material) => material.dispose())
-          } else {
-            object.material.dispose()
-          }
-        }
-      }
-    })
-  }
 }
