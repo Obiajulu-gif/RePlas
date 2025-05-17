@@ -52,7 +52,7 @@ export default function HeroSection() {
       </div>
 
       {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-primary/10 animate-pulse-subtle opacity-70"></div>
+      <div className="absolute top-40 left-10 w-16 h-16 rounded-full bg-primary/10 animate-pulse-subtle opacity-70"></div>
       <div
         className="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-primary/20 animate-pulse-subtle opacity-70"
         style={{ animationDelay: "1s" }}
@@ -65,9 +65,7 @@ export default function HeroSection() {
       <div className="container">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
           <div className={`flex flex-col gap-6 ${isVisible ? "fade-in-left" : "opacity-0"}`}>
-            <div className="flex items-center gap-3 mb-2">
-              <Logo size="lg" />
-            </div>
+            
             <div>
               <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
                 Powered by Celo Blockchain
