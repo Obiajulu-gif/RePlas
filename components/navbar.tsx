@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { SafeImage } from "@/components/ui/safe-image"
 import { ModeToggle } from "@/components/mode-toggle"
+import { useWallet } from "@/components/wallet-provider"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import {
   Recycle,
@@ -20,28 +21,18 @@ import {
   Award,
   User,
   ChevronDown,
+  Wallet,
+  Loader2,
 } from "lucide-react"
 
 export function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
+  const { isConnected, isConnecting, connect, disconnect, address } = useWallet()
 
   const isActive = (path) => {
     return pathname === path
   }
-
-  const navigationItems = [
-    { name: "Home", href: "/" },
-    { name: "Analytics", href: "/analytics" },
-    { name: "Marketplace", href: "/marketplace" },
-    { name: "Explorer", href: "/explorer" },
-    { name: "Scan", href: "/scan" },
-    { name: "Batch Tracking", href: "/batch-tracking" },
-    { name: "Learn", href: "/learn" },
-    { name: "Leaderboard", href: "/leaderboard" },
-    { name: "Recycling Centers", href: "/recycling-centers" },
-    { name: "Settings", href: "/settings" },
-  ]
 
   const routes = [
     {
@@ -98,6 +89,14 @@ export function Navbar() {
     },
   ]
 
+  const handleWalletAction = async () => {
+    if (isConnected) {
+      disconnect()
+    } else {
+      await connect()
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -111,7 +110,7 @@ export function Navbar() {
               className="h-8 w-8"
               fallbackSrc="/abstract-logo.png"
             />
-            <span className="font-bold">RePlas</span>
+            <span className="font-bold text-emerald-600 dark:text-emerald-400">RePlas</span>
           </Link>
         </div>
         <div className="hidden md:flex md:flex-1 md:items-center md:justify-between md:space-x-4">
@@ -122,7 +121,7 @@ export function Navbar() {
                 asChild
                 variant={isActive(route.path) ? "default" : "ghost"}
                 size="sm"
-                className="h-9"
+                className={`h-9 ${isActive(route.path) ? "bg-emerald-600 hover:bg-emerald-700" : ""}`}
               >
                 <Link href={route.path} className="flex items-center">
                   {route.icon}
@@ -150,6 +149,30 @@ export function Navbar() {
             </DropdownMenu>
           </nav>
           <div className="flex items-center space-x-2">
+            <Button
+              onClick={handleWalletAction}
+              variant="outline"
+              size="sm"
+              className={`h-9 ${isConnected ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400" : "border-emerald-600 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-400 dark:text-emerald-400"}`}
+              disabled={isConnecting}
+            >
+              {isConnecting ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Connecting...
+                </>
+              ) : isConnected ? (
+                <>
+                  <Wallet className="h-4 w-4 mr-2" />
+                  {address ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}` : "Connected"}
+                </>
+              ) : (
+                <>
+                  <Wallet className="h-4 w-4 mr-2" />
+                  Connect Wallet
+                </>
+              )}
+            </Button>
             <Button asChild variant="ghost" size="icon">
               <Link href="/profile">
                 <User className="h-5 w-5" />
@@ -160,6 +183,16 @@ export function Navbar() {
           </div>
         </div>
         <div className="flex flex-1 items-center justify-end md:hidden">
+          <Button
+            onClick={handleWalletAction}
+            variant="outline"
+            size="sm"
+            className={`mr-2 ${isConnected ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : "border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400"}`}
+            disabled={isConnecting}
+          >
+            {isConnecting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wallet className="h-4 w-4" />}
+            <span className="sr-only">{isConnected ? "Disconnect Wallet" : "Connect Wallet"}</span>
+          </Button>
           <ModeToggle />
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
@@ -169,13 +202,24 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="grid gap-2 py-6">
+              <div className="flex items-center mb-6 mt-2">
+                <SafeImage
+                  src="/logo.png"
+                  alt="RePlas Logo"
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 mr-2"
+                  fallbackSrc="/abstract-logo.png"
+                />
+                <span className="font-bold text-emerald-600 dark:text-emerald-400">RePlas</span>
+              </div>
+              <nav className="grid gap-2 py-4">
                 {routes.map((route) => (
                   <Button
                     key={route.path}
                     asChild
                     variant={isActive(route.path) ? "default" : "ghost"}
-                    className="justify-start"
+                    className={`justify-start ${isActive(route.path) ? "bg-emerald-600 hover:bg-emerald-700" : ""}`}
                     onClick={() => setIsOpen(false)}
                   >
                     <Link href={route.path} className="flex items-center">
@@ -191,7 +235,7 @@ export function Navbar() {
                       key={route.path}
                       asChild
                       variant={isActive(route.path) ? "default" : "ghost"}
-                      className="justify-start"
+                      className={`justify-start ${isActive(route.path) ? "bg-emerald-600 hover:bg-emerald-700" : ""}`}
                       onClick={() => setIsOpen(false)}
                     >
                       <Link href={route.path} className="flex items-center">
@@ -207,6 +251,32 @@ export function Navbar() {
                       <User className="h-4 w-4 mr-2" />
                       Profile
                     </Link>
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleWalletAction()
+                      setIsOpen(false)
+                    }}
+                    variant="outline"
+                    className={`w-full mt-2 justify-start ${isConnected ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : "border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400"}`}
+                    disabled={isConnecting}
+                  >
+                    {isConnecting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Connecting...
+                      </>
+                    ) : isConnected ? (
+                      <>
+                        <Wallet className="h-4 w-4 mr-2" />
+                        Disconnect Wallet
+                      </>
+                    ) : (
+                      <>
+                        <Wallet className="h-4 w-4 mr-2" />
+                        Connect Wallet
+                      </>
+                    )}
                   </Button>
                 </div>
               </nav>

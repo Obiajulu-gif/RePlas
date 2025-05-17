@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Search, ArrowRight, Clock, Database, FileText } from "lucide-react"
 import BlockchainVisualization from "@/components/3d-blockchain-visualization"
 
-export default function BlockchainExplorer() {
+export function BlockchainExplorer() {
   const [searchQuery, setSearchQuery] = useState("")
 
   // Mock blockchain data

@@ -1,176 +1,214 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { recyclingCenters } from "./data"
+import { Button } from "@/components/ui/button"
+import { MapPin } from "lucide-react"
+import { useRouter } from "next/navigation"
+import dynamic from "next/dynamic"
 
-export default function RecyclingCenterMap() {
-  const [view, setView] = useState("map")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedMaterials, setSelectedMaterials] = useState<string[]>([])
+// Dynamically import Leaflet components with no SSR to avoid hydration issues
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false })
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false })
+const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false })
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false })
+const ZoomControl = dynamic(() => import("react-leaflet").then((mod) => mod.ZoomControl), { ssr: false })
+const Circle = dynamic(() => import("react-leaflet").then((mod) => mod.Circle), { ssr: false })
+const useMap = dynamic(() => import("react-leaflet").then((mod) => mod.useMap), { ssr: false })
 
-  const materials = ["PET", "HDPE", "PVC", "LDPE", "PP", "PS", "Other"]
-
-  const toggleMaterial = (material: string) => {
-    if (selectedMaterials.includes(material)) {
-      setSelectedMaterials(selectedMaterials.filter((m) => m !== material))
-    } else {
-      setSelectedMaterials([...selectedMaterials, material])
+// Custom hook to set map view
+function SetViewOnChange({ coords }) {
+  const map = useMap()
+  useEffect(() => {
+    if (coords && map) {
+      map.setView([coords.lat, coords.lng], 13)
     }
+  }, [coords, map])
+  return null
+}
+
+export default function RecyclingCenterMap({ centers, userLocation, onCenterClick }) {
+  const [selectedCenter, setSelectedCenter] = useState(null)
+  const [mapReady, setMapReady] = useState(false)
+  const router = useRouter()
+
+  // Create custom marker icons
+  const createMarkerIcon = (isPartner) => {
+    if (typeof window === "undefined" || typeof L === "undefined") return null
+
+    return L.divIcon({
+      className: "custom-marker-icon",
+      html: `<div class="w-8 h-8 rounded-full flex items-center justify-center ${
+        isPartner ? "bg-green-600" : "bg-red-500"
+      } text-white shadow-md border-2 border-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+      </div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    })
   }
 
-  const filteredCenters = recyclingCenters.filter((center) => {
-    // Filter by search query
-    const matchesSearch =
-      center.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      center.address.toLowerCase().includes(searchQuery.toLowerCase())
+  const createUserLocationIcon = () => {
+    if (typeof window === "undefined" || typeof L === "undefined") return null
 
-    // Filter by selected materials
-    const matchesMaterials =
-      selectedMaterials.length === 0 ||
-      selectedMaterials.some((material) => center.acceptedMaterials.includes(material))
+    return L.divIcon({
+      className: "custom-user-icon",
+      html: `<div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white shadow-md flex items-center justify-center">
+        <div class="w-4 h-4 rounded-full bg-white"></div>
+      </div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    })
+  }
 
-    return matchesSearch && matchesMaterials
-  })
+  // Handle client-side only code
+  useEffect(() => {
+    // Import Leaflet CSS
+    import("leaflet/dist/leaflet.css")
+
+    // Import Leaflet globally for icon creation
+    import("leaflet").then((L) => {
+      window.L = L.default
+      setMapReady(true)
+    })
+
+    return () => {
+      // Clean up
+      if (window.L && window.L.map) {
+        window.L.map.remove()
+      }
+    }
+  }, [])
+
+  if (!mapReady) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading map...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-        <div className="relative flex-1">
-          <Input
-            placeholder="Search by name or location..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full"
-          />
-          {searchQuery && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="absolute right-0 top-0 h-full px-3"
-              onClick={() => setSearchQuery("")}
+    <>
+      {/* Add Leaflet CSS */}
+      <style jsx global>{`
+        .leaflet-container {
+          height: 100%;
+          width: 100%;
+          border-radius: 0.5rem;
+        }
+        .custom-marker-icon, .custom-user-icon {
+          background: transparent;
+          border: none;
+        }
+        .leaflet-popup-content-wrapper {
+          border-radius: 0.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        .leaflet-popup-content {
+          margin: 0.5rem;
+          min-width: 200px;
+        }
+      `}</style>
+
+      <MapContainer
+        center={[userLocation.lat, userLocation.lng]}
+        zoom={13}
+        zoomControl={false}
+        style={{ height: "100%", width: "100%" }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <ZoomControl position="topright" />
+        <SetViewOnChange coords={userLocation} />
+
+        {/* User location marker */}
+        <Marker position={[userLocation.lat, userLocation.lng]} icon={createUserLocationIcon()}>
+          <Popup>
+            <div className="p-1">
+              <p className="font-medium">Your Location</p>
+            </div>
+          </Popup>
+        </Marker>
+
+        {/* User location radius */}
+        <Circle
+          center={[userLocation.lat, userLocation.lng]}
+          radius={2000} // 2km radius
+          pathOptions={{ color: "#3b82f6", fillColor: "#3b82f6", fillOpacity: 0.1, weight: 1 }}
+        />
+
+        {/* Recycling center markers */}
+        {centers.map((center) => {
+          // In a real app, these would be actual coordinates
+          // For demo, we'll generate positions around the user location
+          const lat = userLocation.lat + (Math.random() - 0.5) * 0.05
+          const lng = userLocation.lng + (Math.random() - 0.5) * 0.05
+
+          return (
+            <Marker
+              key={center.id}
+              position={[lat, lng]}
+              icon={createMarkerIcon(center.isPartner)}
+              eventHandlers={{
+                click: () => setSelectedCenter(center),
+              }}
             >
-              Clear
-            </Button>
-          )}
-        </div>
-
-        <Tabs value={view} onValueChange={setView} className="w-[200px]">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="map">Map</TabsTrigger>
-            <TabsTrigger value="list">List</TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {materials.map((material) => (
-          <Badge
-            key={material}
-            variant={selectedMaterials.includes(material) ? "default" : "outline"}
-            className="cursor-pointer"
-            onClick={() => toggleMaterial(material)}
-          >
-            {material}
-          </Badge>
-        ))}
-        {selectedMaterials.length > 0 && (
-          <Button variant="ghost" size="sm" onClick={() => setSelectedMaterials([])} className="h-6 px-2 text-xs">
-            Clear filters
-          </Button>
-        )}
-      </div>
-
-      <Tabs value={view} className="w-full">
-        <TabsContent value="map" className="mt-0">
-          <Card>
-            <CardContent className="p-0">
-              <div className="relative h-[500px] w-full overflow-hidden rounded-md bg-muted">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-center text-muted-foreground">
-                    Interactive map would be displayed here, showing {filteredCenters.length} recycling centers
-                    <br />
-                    <span className="text-sm">(Map integration requires Google Maps or Mapbox API)</span>
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="list" className="mt-0">
-          <div className="space-y-4">
-            {filteredCenters.length === 0 ? (
-              <Card>
-                <CardContent className="flex h-40 items-center justify-center">
-                  <p className="text-center text-muted-foreground">No recycling centers match your filters</p>
-                </CardContent>
-              </Card>
-            ) : (
-              filteredCenters.map((center) => (
-                <Card key={center.id} className="overflow-hidden">
-                  <div className="flex flex-col sm:flex-row">
-                    <div className="h-48 w-full sm:h-auto sm:w-48">
-                      <img
-                        src={center.image || "/placeholder.svg"}
-                        alt={center.name}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="flex-1 p-4">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-lg font-semibold">{center.name}</h3>
-                          <p className="text-sm text-muted-foreground">{center.address}</p>
-                        </div>
-                        {center.isPartner && <Badge className="bg-green-600">Partner</Badge>}
-                      </div>
-
-                      <div className="mt-2">
-                        <p className="text-sm">
-                          <span className="font-medium">Hours:</span> {center.hours}
-                        </p>
-                        <p className="text-sm">
-                          <span className="font-medium">Phone:</span> {center.phone}
-                        </p>
-                      </div>
-
-                      <div className="mt-2">
-                        <p className="text-sm font-medium">Accepted Materials:</p>
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          {center.acceptedMaterials.map((material) => (
-                            <Badge key={material} variant="outline" className="text-xs">
-                              {material}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="mt-4 flex space-x-2">
-                        <Button size="sm" asChild>
-                          <a href={`/recycling-centers/${center.id}`}>View Details</a>
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          Get Directions
-                        </Button>
-                        {!center.isPartner && (
-                          <Button size="sm" variant="outline">
-                            Connect
-                          </Button>
-                        )}
-                      </div>
-                    </div>
+              <Popup>
+                <div className="p-2">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="font-medium text-base">{center.name}</h3>
+                    {center.isPartner && <Badge className="bg-green-600 text-white">Partner</Badge>}
                   </div>
-                </Card>
-              ))
-            )}
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
+
+                  <p className="text-sm text-muted-foreground flex items-center mb-2">
+                    <MapPin className="h-3 w-3 mr-1" />
+                    {center.address}, {center.city}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {center.acceptedMaterials.slice(0, 3).map((material) => (
+                      <Badge key={material} variant="outline" className="text-xs">
+                        {material}
+                      </Badge>
+                    ))}
+                    {center.acceptedMaterials.length > 3 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{center.acceptedMaterials.length - 3} more
+                      </Badge>
+                    )}
+                  </div>
+
+                  <Button size="sm" className="w-full" onClick={() => onCenterClick(center.id)}>
+                    View Details
+                  </Button>
+                </div>
+              </Popup>
+            </Marker>
+          )
+        })}
+      </MapContainer>
+
+      {/* Legend */}
+      <div className="absolute bottom-4 right-4 bg-background/90 backdrop-blur-sm p-3 rounded-md text-sm z-[1000]">
+        <div className="flex items-center mb-2">
+          <span className="h-3 w-3 rounded-full bg-green-600 mr-2"></span>
+          <span>Partner Centers</span>
+        </div>
+        <div className="flex items-center">
+          <span className="h-3 w-3 rounded-full bg-red-500 mr-2"></span>
+          <span>Regular Centers</span>
+        </div>
+      </div>
+    </>
   )
 }

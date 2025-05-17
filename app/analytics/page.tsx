@@ -45,6 +45,40 @@ const InsightCard = React.memo(({ icon, title, description }) => (
   </div>
 ))
 
+// Sample data for charts
+const plasticTypeData = [
+  { name: "PET", value: 35 },
+  { name: "HDPE", value: 25 },
+  { name: "PVC", value: 15 },
+  { name: "LDPE", value: 10 },
+  { name: "PP", value: 10 },
+  { name: "PS", value: 5 },
+]
+
+const monthlyCollectionData = [
+  { month: "Jan", amount: 120 },
+  { month: "Feb", amount: 150 },
+  { month: "Mar", amount: 180 },
+  { month: "Apr", amount: 220 },
+  { month: "May", amount: 270 },
+  { month: "Jun", amount: 310 },
+  { month: "Jul", amount: 350 },
+  { month: "Aug", amount: 320 },
+  { month: "Sep", amount: 290 },
+  { month: "Oct", amount: 260 },
+  { month: "Nov", amount: 240 },
+  { month: "Dec", amount: 210 },
+]
+
+const impactData = [
+  { name: "CO2 Reduced", value: 1250, unit: "kg" },
+  { name: "Water Saved", value: 3500, unit: "liters" },
+  { name: "Energy Saved", value: 750, unit: "kWh" },
+  { name: "Landfill Avoided", value: 850, unit: "kg" },
+]
+
+const COLORS = ["#10B981", "#059669", "#047857", "#065F46", "#064E3B", "#022C22"]
+
 export default function AnalyticsPage() {
   const [timeRange, setTimeRange] = useState("month")
   const [activeTab, setActiveTab] = useState("overview")
