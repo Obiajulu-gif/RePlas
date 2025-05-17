@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { SafeImage } from "@/components/ui/safe-image"
 import { Search, BookOpen, Video, FileText, ArrowRight, Clock, Calendar, ThumbsUp, Eye, Filter } from "lucide-react"
 
 export default function LearnPage() {
@@ -25,7 +26,7 @@ export default function LearnPage() {
       author: "Dr. Sarah Johnson",
       likes: 245,
       views: 1820,
-      image: "/plastic-recycling-process.png",
+      image: "/learn/plastic-types.png",
     },
     {
       id: 2,
@@ -39,7 +40,7 @@ export default function LearnPage() {
       author: "Michael Chen",
       likes: 189,
       views: 1540,
-      image: "/recycling-process-diagram.png",
+      image: "/learn/plastic-journey.png",
     },
     {
       id: 3,
@@ -53,7 +54,7 @@ export default function LearnPage() {
       author: "Alex Rivera",
       likes: 312,
       views: 2150,
-      image: "/blockchain-visualization.png",
+      image: "/learn/blockchain-waste.png",
     },
     {
       id: 4,
@@ -67,7 +68,7 @@ export default function LearnPage() {
       author: "Emma Wilson",
       likes: 567,
       views: 8920,
-      image: "/plastic-collection.png",
+      image: "/learn/sorting-plastics.png",
     },
     {
       id: 5,
@@ -80,7 +81,7 @@ export default function LearnPage() {
       author: "Prof. David Thompson",
       likes: 823,
       views: 12450,
-      image: "/eco-friendly-products.png",
+      image: "/learn/plastic-pollution.png",
     },
     {
       id: 6,
@@ -94,7 +95,7 @@ export default function LearnPage() {
       author: "RePlas Team",
       likes: 178,
       views: 2340,
-      image: "/digital-token-economy.png",
+      image: "/learn/token-economy.png",
     },
     {
       id: 7,
@@ -107,7 +108,7 @@ export default function LearnPage() {
       author: "Sophia Martinez",
       likes: 291,
       views: 3560,
-      image: "/community-recycling.png",
+      image: "/learn/community-recycling.png",
     },
     {
       id: 8,
@@ -121,7 +122,7 @@ export default function LearnPage() {
       author: "Dr. James Lee",
       likes: 156,
       views: 1890,
-      image: "/ai-sorting-system.png",
+      image: "/learn/ai-sorting.png",
     },
   ]
 
@@ -154,23 +155,51 @@ export default function LearnPage() {
         </div>
       </div>
 
-      <Card className="mb-8">
-        <CardHeader className="pb-3">
-          <CardTitle>Search Resources</CardTitle>
-          <CardDescription>Find articles, videos, and guides on plastic recycling</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search by title, description, or category..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <Card className="md:col-span-2">
+          <CardHeader className="pb-3">
+            <CardTitle>Search Resources</CardTitle>
+            <CardDescription>Find articles, videos, and guides on plastic recycling</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search by title, description, or category..."
+                className="pl-10"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-0">
+          <CardHeader>
+            <CardTitle>Featured Course</CardTitle>
+            <CardDescription>Most popular educational content</CardDescription>
+          </CardHeader>
+          <CardContent className="pb-0">
+            <div className="rounded-lg overflow-hidden mb-4">
+              <SafeImage
+                src="/learn/featured-course.png"
+                alt="Plastic Recycling Fundamentals"
+                width={400}
+                height={225}
+                className="w-full h-auto object-cover transition-transform hover:scale-105 duration-500"
+                fallbackSrc="/recycling-course.png"
+              />
+            </div>
+            <h3 className="font-bold text-lg mb-2">Plastic Recycling Fundamentals</h3>
+            <p className="text-sm text-muted-foreground">
+              A comprehensive introduction to plastic recycling principles, processes, and best practices.
+            </p>
+          </CardContent>
+          <CardFooter className="pt-4">
+            <Button className="w-full">Start Learning</Button>
+          </CardFooter>
+        </Card>
+      </div>
 
       <Tabs defaultValue="all" className="space-y-6">
         <TabsList>
@@ -234,14 +263,12 @@ function ResourceCard({ resource }) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       <div className="aspect-video relative overflow-hidden bg-muted">
-        <img
-          src={resource.image || "/placeholder.svg"}
+        <SafeImage
+          src={resource.image}
           alt={resource.title}
-          className="object-cover w-full h-full transition-transform hover:scale-105 duration-500"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement
-            target.src = "/placeholder.svg?height=200&width=350&query=" + encodeURIComponent(resource.title)
-          }}
+          fill
+          className="object-cover transition-transform hover:scale-105 duration-500"
+          fallbackSrc={`/placeholder.svg?height=200&width=350&query=${encodeURIComponent(resource.title)}`}
         />
         <Badge className="absolute top-2 right-2" variant="secondary">
           {getTypeIcon(resource.type)}

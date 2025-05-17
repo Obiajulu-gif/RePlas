@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Database, LineChart, Coins, Cpu, Recycle, Shield, Globe, Award } from "lucide-react"
 import Image from "next/image"
+import { AnimatedElement } from "@/components/animation-provider"
 
 export default function ValuePropositions() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -83,7 +84,7 @@ export default function ValuePropositions() {
   return (
     <section className="py-20 md:py-24 lg:py-32" id="features" ref={sectionRef}>
       <div className="container">
-        <div className={`text-center max-w-3xl mx-auto mb-16 ${isVisible ? "fade-in-up" : "opacity-0"}`}>
+        <AnimatedElement id="features-heading" animation="fade-in-up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
             Platform Features
           </div>
@@ -92,7 +93,7 @@ export default function ValuePropositions() {
             Our blockchain-powered platform offers unique advantages for all participants in the plastic recycling
             ecosystem.
           </p>
-        </div>
+        </AnimatedElement>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (

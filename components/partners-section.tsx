@@ -1,8 +1,43 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { SafeImage } from "@/components/ui/safe-image"
 import { AnimatedElement } from "@/components/animation-provider"
+import { cn } from "@/lib/utils"
 
 export default function PartnersSection() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const partners = [
+    {
+      name: "Celo Foundation",
+      logo: "/celo-logo.png",
+    },
+    {
+      name: "EcoRecycle",
+      logo: "/eco-recycle-logo.png",
+    },
+    {
+      name: "GreenTech Innovations",
+      logo: "/greentech-logo.png",
+    },
+    {
+      name: "Sustainable Packaging Alliance",
+      logo: "/sustainable-packaging-logo.png",
+    },
+    {
+      name: "Ocean Cleanup Initiative",
+      logo: "/ocean-cleanup-logo.png",
+    },
+    {
+      name: "Circular Economy Institute",
+      logo: "/circular-economy-logo.png",
+    },
+    // Duplicate partners for continuous scrolling effect
     {
       name: "Celo Foundation",
       logo: "/celo-logo.png",
@@ -39,25 +74,26 @@ export default function PartnersSection() {
           </p>
         </AnimatedElement>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
-          {partners.map((partner, index) => (
-            <AnimatedElement
-              key={index}
-              id={`partner-${index}`}
-              animation="fade-in-up"
-              delay={index * 100}
-              className="flex justify-center"
-            >
-              <SafeImage
-                src={partner.logo}
-                alt={partner.name}
-                width={180}
-                height={60}
-                className="h-12 w-auto grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all hover:scale-110 duration-300"
-                fallbackSrc="/placeholder.svg"
-              />
-            </AnimatedElement>
-          ))}
+        {/* Marquee effect for partner logos */}
+        <div className="relative w-full overflow-hidden py-6 bg-muted/30 rounded-lg">
+          {/* Gradient overlays for smooth fade effect */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-background to-transparent"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-background to-transparent"></div>
+
+          <div className={cn("flex items-center gap-12 w-max animate-marquee", mounted ? "opacity-100" : "opacity-0")}>
+            {partners.map((partner, index) => (
+              <div key={index} className="flex justify-center px-4">
+                <SafeImage
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={180}
+                  height={60}
+                  className="h-12 w-auto transition-all hover:scale-110 duration-300 filter hover:brightness-125"
+                  fallbackSrc="/generic-company-logo.png"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

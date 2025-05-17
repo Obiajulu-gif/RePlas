@@ -17,7 +17,7 @@ export default function MarketplacePage() {
       name: "Eco-Friendly Water Bottle",
       description: "Reusable water bottle made from recycled plastic",
       price: 150,
-      image: "/eco-water-bottle.png",
+      image: "/products/eco-water-bottle.png",
       stock: 45,
     },
     {
@@ -25,7 +25,7 @@ export default function MarketplacePage() {
       name: "Reusable Shopping Bag",
       description: "Durable shopping bag made from recycled materials",
       price: 100,
-      image: "/reusable-shopping-bag.png",
+      image: "/products/reusable-shopping-bag.png",
       stock: 78,
     },
     {
@@ -33,7 +33,7 @@ export default function MarketplacePage() {
       name: "Bamboo Utensil Set",
       description: "Portable bamboo utensils for eco-conscious dining",
       price: 120,
-      image: "/bamboo-utensil-set.png",
+      image: "/products/bamboo-utensil-set.png",
       stock: 32,
     },
     {
@@ -41,7 +41,7 @@ export default function MarketplacePage() {
       name: "Eco-Friendly Tote Bag",
       description: "Stylish tote bag made from recycled plastic bottles",
       price: 130,
-      image: "/eco-friendly-tote.png",
+      image: "/products/eco-friendly-tote.png",
       stock: 15,
     },
     {
@@ -49,7 +49,7 @@ export default function MarketplacePage() {
       name: "Bamboo Toothbrush Set",
       description: "Biodegradable toothbrushes with bamboo handles",
       price: 80,
-      image: "/bamboo-toothbrush.png",
+      image: "/products/bamboo-toothbrush.png",
       stock: 50,
     },
     {
@@ -57,7 +57,7 @@ export default function MarketplacePage() {
       name: "Recycled Paper Notebook",
       description: "Notebook made from 100% recycled paper",
       price: 90,
-      image: "/recycled-notebook.png",
+      image: "/products/recycled-notebook.png",
       stock: 65,
     },
   ]
@@ -68,7 +68,7 @@ export default function MarketplacePage() {
       name: "Mobile Data Bundle",
       description: "500MB data bundle for your mobile device",
       price: 200,
-      image: "/mobile-data-bundle.png",
+      image: "/products/mobile-data-bundle.png",
       stock: 999,
     },
     {
@@ -76,7 +76,7 @@ export default function MarketplacePage() {
       name: "Airtime Voucher",
       description: "Airtime voucher for any mobile network",
       price: 150,
-      image: "/airtime-voucher-card.png",
+      image: "/products/airtime-voucher.png",
       stock: 999,
     },
     {
@@ -84,7 +84,7 @@ export default function MarketplacePage() {
       name: "Recycling Champion Badge",
       description: "Digital badge for your profile to showcase your commitment",
       price: 50,
-      image: "/recycling-badge.png",
+      image: "/products/recycling-badge.png",
       stock: 999,
     },
     {
@@ -92,7 +92,7 @@ export default function MarketplacePage() {
       name: "Digital Gift Card",
       description: "Gift card for popular online stores",
       price: 250,
-      image: "/digital-gift-card.png",
+      image: "/products/digital-gift-card.png",
       stock: 999,
     },
   ]
@@ -103,7 +103,7 @@ export default function MarketplacePage() {
       name: "Tree Planting Certificate",
       description: "Fund the planting of a tree and receive a digital certificate",
       price: 300,
-      image: "/tree-planting-certificate.png",
+      image: "/products/tree-planting-certificate.png",
       stock: 150,
     },
     {
@@ -111,7 +111,7 @@ export default function MarketplacePage() {
       name: "Carbon Offset NFT",
       description: "NFT representing 1 ton of carbon offset through verified projects",
       price: 500,
-      image: "/carbon-offset-nft.png",
+      image: "/products/carbon-offset-nft.png",
       stock: 75,
     },
   ]
@@ -174,7 +174,7 @@ function ProductCard({ product }) {
           alt={product.name}
           fill
           className="object-cover transition-transform hover:scale-105 duration-500"
-          fallbackSrc="/placeholder.svg"
+          fallbackSrc="/eco-friendly-product.png"
         />
         {product.stock < 20 && (
           <Badge variant="destructive" className="absolute top-2 right-2">
