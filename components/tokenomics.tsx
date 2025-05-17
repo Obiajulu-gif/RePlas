@@ -1,12 +1,37 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { PieChart } from "@/components/ui/chart"
 import { AnimatedElement } from "@/components/animation-provider"
-import PlasticToken from "@/components/3d-plastic-token"
+import { Skeleton } from "@/components/ui/skeleton"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+
+// Dynamically import the 3D components with loading fallbacks
+const PlasticToken = dynamic(() => import("@/components/3d-plastic-token"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center w-full h-[300px]">
+      <Skeleton className="w-[300px] h-[300px] rounded-full" />
+    </div>
+  ),
+})
+
+const EconomicEngine3D = dynamic(() => import("@/components/economic-engine-3d"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full h-[300px] rounded-lg" />,
+})
 
 export default function Tokenomics() {
+  const [mounted, setMounted] = useState(false)
+
+  // Ensure components only render on client-side
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const tokenDistribution = [
     { name: "Recycling Rewards", value: 40 },
     { name: "Ecosystem Growth", value: 25 },
@@ -37,17 +62,36 @@ export default function Tokenomics() {
   return (
     <section className="py-20 md:py-24 lg:py-32" id="tokenomics">
       <div className="container">
-        <AnimatedElement id="tokenomics-heading" animation="fade-in-up" className="text-center max-w-3xl mx-auto mb-16">
+        <AnimatedElement id="tokenomics-heading" animation="fade-in-up" className="text-center max-w-3xl mx-auto mb-8">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">The Economic Engine of Sustainability</h2>
           <p className="text-xl text-muted-foreground">
             Our token system creates economic incentives for sustainable plastic management
           </p>
         </AnimatedElement>
 
+        {/* Economic Engine 3D Animation */}
+        <AnimatedElement id="economic-engine-3d" animation="fade-in" className="mb-16">
+          <div className="bg-card rounded-lg shadow-lg p-6 overflow-hidden">
+            {mounted && <EconomicEngine3D height={300} />}
+          </div>
+        </AnimatedElement>
+
         <div className="grid md:grid-cols-5 gap-8 mb-16">
           <div className="md:col-span-2 flex items-center justify-center">
             <AnimatedElement id="token-3d-model" animation="fade-in-left">
-              <PlasticToken size={300} />
+              {mounted ? (
+                <PlasticToken size={300} />
+              ) : (
+                <div className="relative w-[300px] h-[300px]">
+                  <Image
+                    src="/digital-token.png"
+                    alt="RePlas Token"
+                    width={300}
+                    height={300}
+                    className="rounded-full object-cover"
+                  />
+                </div>
+              )}
             </AnimatedElement>
           </div>
 
