@@ -134,20 +134,27 @@ export class RewardTokenContract {
     try {
       const contract = new this.kit.web3.eth.Contract(tokenAbi, this.contractAddress)
 
-      // Get user address from private key
-      const accounts = await this.kit.web3.eth.getAccounts()
-      const from = accounts[0]
-
-      if (!from) {
-        throw new Error("No account available for transaction")
+      // Get admin account from private key
+      const privateKey = process.env.ADMIN_PRIVATE_KEY
+      if (!privateKey) {
+        throw new Error("Admin private key not configured")
       }
+
+      const account = this.kit.web3.eth.accounts.privateKeyToAccount(privateKey)
+      this.kit.addAccount(account.privateKey)
+
+      // Set default account
+      this.kit.defaultAccount = account.address
 
       // Find user wallet address from database
       // In a real implementation, we would look up the user's wallet address
-      const to = "0x1234567890123456789012345678901234567890" // Placeholder
+      const to = process.env.RECIPIENT_ADDRESS || "0x1234567890123456789012345678901234567890"
 
       // Call contract method
-      const tx = await contract.methods.distributeRewards(to, role, amount, metadata).send({ from })
+      const tx = await contract.methods.distributeRewards(to, role, amount, metadata).send({
+        from: account.address,
+        gasPrice: this.kit.web3.utils.toWei("0.5", "gwei"),
+      })
 
       return tx.transactionHash
     } catch (error) {
@@ -171,6 +178,42 @@ export class RewardTokenContract {
       return balance
     } catch (error) {
       console.error("Error getting token balance:", error)
+      throw error
+    }
+  }
+
+  /**
+   * Transfer tokens between addresses
+   * @param from Sender address
+   * @param to Recipient address
+   * @param amount Amount to transfer
+   * @returns Transaction hash
+   */
+  async transfer(from: string, to: string, amount: string): Promise<string> {
+    try {
+      const contract = new this.kit.web3.eth.Contract(tokenAbi, this.contractAddress)
+
+      // Get admin account
+      const privateKey = process.env.ADMIN_PRIVATE_KEY
+      if (!privateKey) {
+        throw new Error("Admin private key not configured")
+      }
+
+      const account = this.kit.web3.eth.accounts.privateKeyToAccount(privateKey)
+      this.kit.addAccount(account.privateKey)
+
+      // Set default account
+      this.kit.defaultAccount = account.address
+
+      // Call transfer method
+      const tx = await contract.methods.transfer(to, amount).send({
+        from: account.address,
+        gasPrice: this.kit.web3.utils.toWei("0.5", "gwei"),
+      })
+
+      return tx.transactionHash
+    } catch (error) {
+      console.error("Error transferring tokens:", error)
       throw error
     }
   }

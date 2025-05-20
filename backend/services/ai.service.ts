@@ -38,6 +38,34 @@ export const chatWithAI = async (messages: { role: string; content: string }[]):
   }
 }
 
+// Chat with AI (streaming)
+export const streamChatWithAI = async (
+  messages: { role: string; content: string }[],
+  onChunk: (chunk: string) => void,
+): Promise<void> => {
+  try {
+    const model = getChatModel()
+
+    const chat = model.startChat({
+      history: messages.slice(0, -1).map((msg) => ({
+        role: msg.role === "user" ? "user" : "model",
+        parts: [{ text: msg.content }],
+      })),
+    })
+
+    const lastMessage = messages[messages.length - 1].content
+    const result = await chat.sendMessageStream(lastMessage)
+
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text()
+      onChunk(chunkText)
+    }
+  } catch (error) {
+    console.error("AI streaming chat error:", error)
+    throw new Error("Failed to stream response from AI")
+  }
+}
+
 // Analyze image
 export const analyzeImage = async (
   imageUrl: string,
