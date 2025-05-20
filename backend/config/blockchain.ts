@@ -1,34 +1,49 @@
-import { type ContractKit, newKit } from "@celo/contractkit"
+import { type ContractKit, newKitFromWeb3 } from "@celo/contractkit"
+import Web3 from "web3"
 import { config } from "dotenv"
 
 config()
 
-let kit: ContractKit
+let kit: ContractKit | null = null
 
-export const setupCeloProvider = () => {
-  try {
-    const providerUrl = process.env.CELO_PROVIDER_URL || "https://alfajores-forno.celo-testnet.org"
-    kit = newKit(providerUrl)
-
-    // Set up account if private key is provided
-    if (process.env.ADMIN_PRIVATE_KEY) {
-      const account = kit.web3.eth.accounts.privateKeyToAccount(process.env.ADMIN_PRIVATE_KEY)
-      kit.addAccount(account.privateKey)
-      kit.defaultAccount = account.address
-      console.log("Celo account configured:", account.address)
-    }
-
-    console.log("Connected to Celo blockchain")
+// Initialize ContractKit with provider
+export const getContractKit = (): ContractKit => {
+  if (kit) {
     return kit
-  } catch (error) {
-    console.error("Celo provider setup error:", error)
-    process.exit(1)
   }
+
+  // Get provider URL from environment variables
+  const providerUrl = process.env.CELO_PROVIDER_URL || "https://alfajores-forno.celo-testnet.org"
+
+  // Create Web3 instance
+  const web3 = new Web3(providerUrl)
+
+  // Create ContractKit instance
+  kit = newKitFromWeb3(web3)
+
+  // Add admin account if private key is available
+  const adminPrivateKey = process.env.ADMIN_PRIVATE_KEY
+  if (adminPrivateKey) {
+    kit.addAccount(adminPrivateKey)
+  }
+
+  return kit
 }
 
-export const getContractKit = (): ContractKit => {
-  if (!kit) {
-    setupCeloProvider()
-  }
-  return kit
+// Get network ID
+export const getNetworkId = async (): Promise<number> => {
+  const kit = getContractKit()
+  return kit.web3.eth.net.getId()
+}
+
+// Get gas price
+export const getGasPrice = async (): Promise<string> => {
+  const kit = getContractKit()
+  return kit.web3.eth.getGasPrice()
+}
+
+// Check if address is valid
+export const isValidAddress = (address: string): boolean => {
+  const kit = getContractKit()
+  return kit.web3.utils.isAddress(address)
 }

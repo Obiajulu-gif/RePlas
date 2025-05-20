@@ -1,10 +1,12 @@
 import express from "express"
-import { handleTokenTransfer, handleBatchUpdate } from "../controllers/webhook.controller"
+import { handleBlockchainEvent, handleExternalServiceWebhook } from "../controllers/webhook.controller"
 
 const router = express.Router()
 
-// Webhook routes
-router.post("/token-transfer", handleTokenTransfer)
-router.post("/batch-update", handleBatchUpdate)
+// Blockchain event webhooks
+router.post("/blockchain", handleBlockchainEvent)
+
+// External service webhooks
+router.post("/external/:service", handleExternalServiceWebhook)
 
 export default router

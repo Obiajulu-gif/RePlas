@@ -1,7 +1,13 @@
 import type { Request, Response } from "express"
 import { StatusCodes } from "http-status-codes"
 import { BadRequestError } from "../errors"
-import { chatWithAI, analyzeImage, generateEnvironmentalImpact, detectFakeSubmission } from "../services/ai.service"
+import {
+  chatWithAI,
+  streamChatWithAI,
+  analyzeImage,
+  generateEnvironmentalImpact,
+  detectFakeSubmission,
+} from "../services/ai.service"
 import PlasticSubmission from "../models/plastic-submission.model"
 
 // Chat with AI
@@ -21,6 +27,35 @@ export const chat = async (req: Request, res: Response) => {
     })
   } catch (error) {
     throw new BadRequestError(`AI chat failed: ${error.message}`)
+  }
+}
+
+// Stream chat with AI
+export const streamChat = async (req: Request, res: Response) => {
+  const { messages } = req.body
+
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    throw new BadRequestError("Messages are required")
+  }
+
+  // Set headers for SSE
+  res.setHeader("Content-Type", "text/event-stream")
+  res.setHeader("Cache-Control", "no-cache")
+  res.setHeader("Connection", "keep-alive")
+
+  try {
+    // Send response in chunks
+    await streamChatWithAI(messages, (chunk) => {
+      res.write(`data: ${JSON.stringify({ chunk })}\n\n`)
+    })
+
+    // End the stream
+    res.write(`data: ${JSON.stringify({ done: true })}\n\n`)
+    res.end()
+  } catch (error) {
+    console.error("Stream chat error:", error)
+    res.write(`data: ${JSON.stringify({ error: error.message })}\n\n`)
+    res.end()
   }
 }
 
