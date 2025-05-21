@@ -206,8 +206,8 @@ export function Navbar() {
                 <SafeImage
                   src="/logo.png"
                   alt="RePlas Logo"
-                  width={32}
-                  height={32}
+                  width={64}
+                  height={64}
                   className="h-8 w-8 mr-2"
                   fallbackSrc="/abstract-logo.png"
                 />

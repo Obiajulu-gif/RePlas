@@ -34,28 +34,28 @@ export default function StatsSection() {
             className={`flex flex-col transform transition-all hover:scale-105 hover:-translate-y-1 duration-300 ${isVisible ? "fade-in-up" : "opacity-0"}`}
             style={{ transitionDelay: "0ms" }}
           >
-            <span className="text-3xl md:text-4xl font-bold text-primary">142K+</span>
+            <span className="text-3xl md:text-4xl font-bold text-emerald-600">142K+</span>
             <span className="text-sm text-muted-foreground mt-1">Tons of Plastic Recycled</span>
           </div>
           <div
             className={`flex flex-col transform transition-all hover:scale-105 hover:-translate-y-1 duration-300 ${isVisible ? "fade-in-up" : "opacity-0"}`}
             style={{ transitionDelay: "200ms" }}
           >
-            <span className="text-3xl md:text-4xl font-bold text-primary">284K+</span>
+            <span className="text-3xl md:text-4xl font-bold text-emerald-600">284K+</span>
             <span className="text-sm text-muted-foreground mt-1">Tons of CO₂ Offset</span>
           </div>
           <div
             className={`flex flex-col transform transition-all hover:scale-105 hover:-translate-y-1 duration-300 ${isVisible ? "fade-in-up" : "opacity-0"}`}
             style={{ transitionDelay: "400ms" }}
           >
-            <span className="text-3xl md:text-4xl font-bold text-primary">$1.2M+</span>
+            <span className="text-3xl md:text-4xl font-bold text-emerald-600">$1.2M+</span>
             <span className="text-sm text-muted-foreground mt-1">Value Generated</span>
           </div>
           <div
             className={`flex flex-col transform transition-all hover:scale-105 hover:-translate-y-1 duration-300 ${isVisible ? "fade-in-up" : "opacity-0"}`}
             style={{ transitionDelay: "600ms" }}
           >
-            <span className="text-3xl md:text-4xl font-bold text-primary">12K+</span>
+            <span className="text-3xl md:text-4xl font-bold text-emerald-600">12K+</span>
             <span className="text-sm text-muted-foreground mt-1">Active Participants</span>
           </div>
         </div>

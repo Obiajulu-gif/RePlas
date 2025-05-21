@@ -68,7 +68,7 @@ export default function AIChatWidget() {
                   </Avatar>
                   <div
                     className={`rounded-lg px-3 py-2 text-sm ${
-                      message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                      message.role === "user" ? "bg-emerald-600 text-emerald-600-foreground" : "bg-muted"
                     }`}
                   >
                     {message.content}

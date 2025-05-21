@@ -32,49 +32,49 @@ export default function ValuePropositions() {
 
   const features = [
     {
-      icon: <Database className="h-12 w-12 text-primary" />,
+      icon: <Database className="h-12 w-12 text-emerald-600" />,
       title: "Blockchain Traceability",
       description: "Immutable tracking of plastic waste from source to recycling, powered by Celo blockchain.",
       image: "/track-icon.png",
     },
     {
-      icon: <Shield className="h-12 w-12 text-primary" />,
+      icon: <Shield className="h-12 w-12 text-emerald-600" />,
       title: "Transparent Verification",
       description: "Real-time data and analytics to monitor the environmental impact and recycling processes.",
       image: "/trace-icon.png",
     },
     {
-      icon: <Coins className="h-12 w-12 text-primary" />,
+      icon: <Coins className="h-12 w-12 text-emerald-600" />,
       title: "Token Incentives",
       description: "Earn rewards and tokens for participating in sustainable recycling practices.",
       image: "/reward-icon.png",
     },
     {
-      icon: <Cpu className="h-12 w-12 text-primary" />,
+      icon: <Cpu className="h-12 w-12 text-emerald-600" />,
       title: "AI-Powered Optimization",
       description: "AI-driven optimization of waste collection and recycling logistics.",
       image: "/transform-icon.png",
     },
     {
-      icon: <Recycle className="h-12 w-12 text-primary" />,
+      icon: <Recycle className="h-12 w-12 text-emerald-600" />,
       title: "Circular Economy",
       description: "Promote and enable a circular economy for plastic materials and products.",
       image: "/recycling-symbols.png",
     },
     {
-      icon: <Globe className="h-12 w-12 text-primary" />,
+      icon: <Globe className="h-12 w-12 text-emerald-600" />,
       title: "Global Impact",
       description: "Connect with a worldwide network of recyclers, producers, and sustainability advocates.",
       image: "/diverse-group.png",
     },
     {
-      icon: <LineChart className="h-12 w-12 text-primary" />,
+      icon: <LineChart className="h-12 w-12 text-emerald-600" />,
       title: "Impact Analytics",
       description: "Measure and visualize your environmental impact with comprehensive analytics.",
       image: "/blockchain-visualization.png",
     },
     {
-      icon: <Award className="h-12 w-12 text-primary" />,
+      icon: <Award className="h-12 w-12 text-emerald-600" />,
       title: "Certification & Compliance",
       description: "Easily meet regulatory requirements and gain sustainability certifications.",
       image: "/digital-token.png",
@@ -85,7 +85,7 @@ export default function ValuePropositions() {
     <section className="py-20 md:py-24 lg:py-32" id="features" ref={sectionRef}>
       <div className="container">
         <AnimatedElement id="features-heading" animation="fade-in-up" className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center justify-center rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
+          <div className="inline-flex items-center justify-center rounded-full bg-emerald-600/10 px-3 py-1 text-sm font-semibold text-emerald-600 mb-4">
             Platform Features
           </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Transforming Plastic Waste Management</h2>
@@ -99,7 +99,7 @@ export default function ValuePropositions() {
           {features.map((feature, index) => (
             <Card
               key={index}
-              className={`bg-background/60 backdrop-blur transition-all hover:shadow-lg hover:-translate-y-2 duration-300 group border-primary/10 hover:border-primary/30 ${
+              className={`bg-background/60 backdrop-blur transition-all hover:shadow-lg hover:-translate-y-2 duration-300 group border-emerald-600/10 hover:border-emerald-600/30 ${
                 isVisible ? "fade-in-up" : "opacity-0"
               }`}
               style={{ transitionDelay: `${index * 100}ms` }}
@@ -107,7 +107,7 @@ export default function ValuePropositions() {
               <CardHeader className="pb-2">
                 <div className="mb-4 transform transition-transform group-hover:scale-110 duration-300 flex items-center justify-between">
                   {feature.icon}
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="h-10 w-10 rounded-full bg-emerald-600/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <Image
                       src={feature.image || "/placeholder.svg"}
                       alt={feature.title}

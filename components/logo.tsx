@@ -24,7 +24,7 @@ export function Logo({ size = "md", variant = "default", className }: LogoProps)
   }
 
   const variantClasses = {
-    default: "text-primary",
+    default: "text-emerald-600",
     white: "text-white",
     dark: "text-gray-900",
   }

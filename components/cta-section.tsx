@@ -6,7 +6,7 @@ import { AnimatedElement } from "@/components/animation-provider"
 
 export default function CtaSection() {
   return (
-    <section className="py-20 md:py-24 lg:py-32 bg-primary/5">
+    <section className="py-20 md:py-24 lg:py-32 bg-emerald-600/5">
       <div className="container">
         <AnimatedElement id="cta-content" animation="fade-in-up" className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Join the Movement</h2>
@@ -15,13 +15,13 @@ export default function CtaSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button size="lg" asChild className="group">
+            <Button size="lg" asChild className="group bg-emerald-600">
               <Link href="/signup">
                 Sign Up Now
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild className="transition-all hover:bg-primary/10">
+            <Button size="lg" variant="outline" asChild className="transition-all bg-emerald-600 hover:bg-emerald-600/10">
               <Link href="/contact">Contact Sales</Link>
             </Button>
           </div>
@@ -32,10 +32,10 @@ export default function CtaSection() {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 transition-all focus:ring-2 focus:ring-primary"
+                className="flex-1 transition-all focus:ring-2 focus:ring-emerald-600"
                 aria-label="Email address"
               />
-              <Button type="submit" className="transition-transform hover:scale-105 duration-300">
+              <Button type="submit" className="transition-transform hover:scale-105 duration-300 bg-emerald-600">
                 Subscribe
               </Button>
             </form>
