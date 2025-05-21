@@ -84,13 +84,13 @@ export default function HeroSection() {
       </div>
 
       {/* Floating elements */}
-      <div className="absolute top-40 left-10 w-16 h-16 rounded-full bg-primary/10 animate-pulse-subtle opacity-70"></div>
+      <div className="absolute top-40 left-10 w-16 h-16 rounded-full bg-emerald-600/10 animate-pulse-subtle opacity-70"></div>
       <div
-        className="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-primary/20 animate-pulse-subtle opacity-70"
+        className="absolute bottom-20 right-10 w-24 h-24 rounded-full bg-emerald-600/20 animate-pulse-subtle opacity-70"
         style={{ animationDelay: "1s" }}
       ></div>
       <div
-        className="absolute top-40 right-20 w-12 h-12 rounded-full bg-primary/15 animate-pulse-subtle opacity-70"
+        className="absolute top-40 right-20 w-12 h-12 rounded-full bg-emerald-600/15 animate-pulse-subtle opacity-70"
         style={{ animationDelay: "2s" }}
       ></div>
 
@@ -98,10 +98,10 @@ export default function HeroSection() {
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
           <div className={`flex flex-col gap-6 ${isVisible ? "fade-in-left" : "opacity-0"}`}>
             <div>
-              <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-semibold text-primary mb-4">
+              <div className="inline-flex items-center rounded-full border border-emerald-600/30 bg-emerald-600/10 px-3 py-1 text-sm font-semibold text-emerald-600 mb-4">
                 Powered by Celo Blockchain
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-600/70">
                 Revolutionizing Plastic Waste Management
               </h1>
               <p className="text-xl text-muted-foreground">
@@ -110,7 +110,7 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" asChild className="group bg-primary hover:bg-primary/90">
+              <Button size="lg" asChild className="group bg-emerald-600 hover:bg-emerald-600/90">
                 <Link href="/signup">
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -120,7 +120,7 @@ export default function HeroSection() {
                 size="lg"
                 variant="outline"
                 onClick={() => setVideoOpen(true)}
-                className="group transition-all hover:bg-primary/10"
+                className="group transition-all hover:bg-emerald-600/10"
               >
                 <Play className="mr-2 h-4 w-4 transition-transform group-hover:scale-125" />
                 Watch Demo
@@ -161,7 +161,7 @@ export default function HeroSection() {
           <div
             className={`relative aspect-video rounded-xl overflow-hidden shadow-2xl ${isVisible ? "fade-in-right" : "opacity-0"}`}
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-transparent z-10"></div>
             {imagesLoaded ? (
               <SafeImage
                 src="/sustainable-recycling-hero.png"
@@ -175,8 +175,8 @@ export default function HeroSection() {
             )}
             <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm p-4 rounded-lg z-20">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-                  <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="h-10 w-10 rounded-full bg-emerald-600/20 flex items-center justify-center">
+                  <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>

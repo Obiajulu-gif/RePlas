@@ -110,7 +110,7 @@ export default function Tokenomics() {
                     <CardTitle className="text-lg">Total Supply</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-2xl font-bold text-primary">1,000,000,000</p>
+                    <p className="text-2xl font-bold text-emerald-600">1,000,000,000</p>
                     <p className="text-xs text-muted-foreground">Fixed supply, no inflation</p>
                   </CardContent>
                 </Card>
@@ -120,7 +120,7 @@ export default function Tokenomics() {
                     <CardTitle className="text-lg">Blockchain</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-2xl font-bold text-primary">Celo</p>
+                    <p className="text-2xl font-bold text-emerald-600">Celo</p>
                     <p className="text-xs text-muted-foreground">Carbon-negative blockchain</p>
                   </CardContent>
                 </Card>
@@ -224,7 +224,7 @@ export default function Tokenomics() {
                 <CardContent>
                   <ul className="space-y-4">
                     <li className="flex gap-3 transform transition-all hover:translate-x-1 duration-300">
-                      <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 animate-pulse-subtle">
+                      <div className="h-8 w-8 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 animate-pulse-subtle">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -235,7 +235,7 @@ export default function Tokenomics() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="h-4 w-4 text-primary"
+                          className="h-4 w-4 text-emerald-600"
                         >
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
@@ -249,7 +249,7 @@ export default function Tokenomics() {
                     </li>
                     <li className="flex gap-3 transform transition-all hover:translate-x-1 duration-300">
                       <div
-                        className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
+                        className="h-8 w-8 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
                         style={{ animationDelay: "0.2s" }}
                       >
                         <svg
@@ -262,7 +262,7 @@ export default function Tokenomics() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="h-4 w-4 text-primary"
+                          className="h-4 w-4 text-emerald-600"
                         >
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
@@ -276,7 +276,7 @@ export default function Tokenomics() {
                     </li>
                     <li className="flex gap-3 transform transition-all hover:translate-x-1 duration-300">
                       <div
-                        className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
+                        className="h-8 w-8 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
                         style={{ animationDelay: "0.4s" }}
                       >
                         <svg
@@ -289,7 +289,7 @@ export default function Tokenomics() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="h-4 w-4 text-primary"
+                          className="h-4 w-4 text-emerald-600"
                         >
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
@@ -303,7 +303,7 @@ export default function Tokenomics() {
                     </li>
                     <li className="flex gap-3 transform transition-all hover:translate-x-1 duration-300">
                       <div
-                        className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
+                        className="h-8 w-8 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
                         style={{ animationDelay: "0.6s" }}
                       >
                         <svg
@@ -316,7 +316,7 @@ export default function Tokenomics() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="h-4 w-4 text-primary"
+                          className="h-4 w-4 text-emerald-600"
                         >
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
@@ -330,7 +330,7 @@ export default function Tokenomics() {
                     </li>
                     <li className="flex gap-3 transform transition-all hover:translate-x-1 duration-300">
                       <div
-                        className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
+                        className="h-8 w-8 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 animate-pulse-subtle"
                         style={{ animationDelay: "0.8s" }}
                       >
                         <svg
@@ -343,7 +343,7 @@ export default function Tokenomics() {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="h-4 w-4 text-primary"
+                          className="h-4 w-4 text-emerald-600"
                         >
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>

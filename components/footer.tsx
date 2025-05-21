@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { Logo } from "@/components/logo"
+import { SafeImage } from "@/components/ui/safe-image"
+
 
 export default function Footer() {
   return (
@@ -7,7 +9,17 @@ export default function Footer() {
       <div className="container py-12 md:py-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <Logo size="md" />
+             <div className="flex items-center mb-6 mt-2">
+                            <SafeImage
+                              src="/logo.png"
+                              alt="RePlas Logo"
+                              width={64}
+                              height={64}
+                              className="h-8 w-8 mr-2"
+                              fallbackSrc="/abstract-logo.png"
+                            />
+                            <span className="font-bold text-emerald-600 dark:text-emerald-400">RePlas</span>
+                          </div>
             <p className="text-sm text-muted-foreground max-w-xs">
               Revolutionizing plastic waste management with blockchain technology and AI for a more sustainable future.
             </p>

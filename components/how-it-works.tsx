@@ -52,8 +52,8 @@ export default function HowItWorks() {
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-primary font-medium">1</span>
+                  <div className="h-6 w-6 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-emerald-600 font-medium">1</span>
                   </div>
                   <div>
                     <span className="font-medium">Collection & Sorting</span>
@@ -63,8 +63,8 @@ export default function HowItWorks() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-primary font-medium">2</span>
+                  <div className="h-6 w-6 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-emerald-600 font-medium">2</span>
                   </div>
                   <div>
                     <span className="font-medium">Processing & Transformation</span>
@@ -75,8 +75,8 @@ export default function HowItWorks() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-primary font-medium">3</span>
+                  <div className="h-6 w-6 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-emerald-600 font-medium">3</span>
                   </div>
                   <div>
                     <span className="font-medium">Verification & Certification</span>
@@ -86,8 +86,8 @@ export default function HowItWorks() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-primary font-medium">4</span>
+                  <div className="h-6 w-6 rounded-full bg-emerald-600/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-emerald-600 font-medium">4</span>
                   </div>
                   <div>
                     <span className="font-medium">Reuse & Impact Tracking</span>

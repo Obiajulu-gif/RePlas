@@ -189,14 +189,14 @@ function ProductCard({ product }) {
       <CardContent>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <span className="text-2xl font-bold text-primary">{product.price}</span>
+            <span className="text-2xl font-bold text-emerald-600">{product.price}</span>
             <span className="text-sm text-muted-foreground">RPL</span>
           </div>
           <div className="text-sm text-muted-foreground">{product.stock} available</div>
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Redeem Now</Button>
+        <Button className="w-full bg-emerald-600">Redeem Now</Button>
       </CardFooter>
     </Card>
   )

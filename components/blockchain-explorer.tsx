@@ -82,7 +82,7 @@ export function BlockchainExplorer() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Card>
                   <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <Clock className="h-8 w-8 text-primary mb-2" />
+                    <Clock className="h-8 w-8 text-emerald-600 mb-2" />
                     <p className="text-sm font-medium">Avg Block Time</p>
                     <p className="text-2xl font-bold">5.2s</p>
                   </CardContent>
@@ -90,7 +90,7 @@ export function BlockchainExplorer() {
 
                 <Card>
                   <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <Database className="h-8 w-8 text-primary mb-2" />
+                    <Database className="h-8 w-8 text-emerald-600 mb-2" />
                     <p className="text-sm font-medium">Total Blocks</p>
                     <p className="text-2xl font-bold">12.3M</p>
                   </CardContent>
@@ -98,7 +98,7 @@ export function BlockchainExplorer() {
 
                 <Card>
                   <CardContent className="p-4 flex flex-col items-center justify-center text-center">
-                    <FileText className="h-8 w-8 text-primary mb-2" />
+                    <FileText className="h-8 w-8 text-emerald-600 mb-2" />
                     <p className="text-sm font-medium">Transactions</p>
                     <p className="text-2xl font-bold">45.7M</p>
                   </CardContent>
@@ -116,7 +116,7 @@ export function BlockchainExplorer() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="h-8 w-8 text-primary mb-2"
+                      className="h-8 w-8 text-emerald-600 mb-2"
                     >
                       <path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5" />
                       <path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12" />
@@ -172,7 +172,7 @@ export function BlockchainExplorer() {
                     {recentBlocks.map((block) => (
                       <tr key={block.id} className="border-b hover:bg-muted/50">
                         <td className="py-3 px-4">
-                          <span className="font-medium text-primary">{block.number}</span>
+                          <span className="font-medium text-emerald-600">{block.number}</span>
                         </td>
                         <td className="py-3 px-4 text-muted-foreground">{block.timestamp}</td>
                         <td className="py-3 px-4">{block.transactions}</td>
@@ -211,7 +211,7 @@ export function BlockchainExplorer() {
                     {recentTransactions.map((tx) => (
                       <tr key={tx.id} className="border-b hover:bg-muted/50">
                         <td className="py-3 px-4">
-                          <span className="font-medium text-primary">{tx.id}</span>
+                          <span className="font-medium text-emerald-600">{tx.id}</span>
                         </td>
                         <td className="py-3 px-4 text-muted-foreground">{tx.from}</td>
                         <td className="py-3 px-4 text-muted-foreground">{tx.to}</td>
