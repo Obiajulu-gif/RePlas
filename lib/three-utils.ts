@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
+import * as THREE from "three"
 
 // Utility to clean up WebGL context when component unmounts
 export function useWebGLCleanup(canvasRef) {
@@ -63,6 +64,53 @@ export function isWebGLSupported() {
   } catch (e) {
     return false
   }
+}
+
+// Utility to preload fonts for Three.js
+export function preloadFont(url) {
+  return new Promise((resolve, reject) => {
+    const loader = new THREE.FontLoader()
+    loader.load(
+      url,
+      (font) => resolve(font),
+      undefined,
+      (error) => reject(error),
+    )
+  })
+}
+
+// Utility to monitor performance
+export function usePerformanceMonitor(threshold = 30) {
+  const [fps, setFps] = useState(60)
+  const [isLowPerformance, setIsLowPerformance] = useState(false)
+  const times = useRef([])
+
+  useEffect(() => {
+    let frameId
+    let prevTime = performance.now()
+
+    const loop = () => {
+      const time = performance.now()
+      frameId = requestAnimationFrame(loop)
+
+      const currentFps = 1000 / (time - prevTime)
+      times.current.push(currentFps)
+      if (times.current.length > 30) {
+        times.current.shift()
+      }
+
+      const averageFps = times.current.reduce((a, b) => a + b, 0) / times.current.length
+      setFps(Math.round(averageFps))
+      setIsLowPerformance(averageFps < threshold)
+
+      prevTime = time
+    }
+
+    frameId = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(frameId)
+  }, [threshold])
+
+  return { fps, isLowPerformance }
 }
 
 // Utility to optimize Three.js performance

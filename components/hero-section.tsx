@@ -130,21 +130,21 @@ export default function HeroSection() {
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 <SafeImage
-                  src="/user-avatar-1.jpg"
+                  src="/user-avatar-1.png"
                   alt="User"
                   width={32}
                   height={32}
                   className="rounded-full border-2 border-background"
                 />
                 <SafeImage
-                  src="/user-avatar-2.jpg"
+                  src="/user-avatar-2.png"
                   alt="User"
                   width={32}
                   height={32}
                   className="rounded-full border-2 border-background"
                 />
                 <SafeImage
-                  src="/user-avatar-3.jpg"
+                  src="/user-avatar-3.png"
                   alt="User"
                   width={32}
                   height={32}
