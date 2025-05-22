@@ -18,6 +18,12 @@ export default function HowItWorks() {
   useEffect(() => {
     setIsClient(true)
   }, [])
+   const [mounted, setMounted] = useState(false)
+  
+    // Ensure components only render on client-side
+    useEffect(() => {
+      setMounted(true)
+    }, [])
 
   return (
     <section className="py-20 md:py-24 lg:py-32 bg-muted/30" id="how-it-works">
@@ -37,7 +43,7 @@ export default function HowItWorks() {
         {/* Value Chain 3D Animation */}
         <AnimatedElement id="value-chain-3d" animation="fade-in" className="mb-16">
           <div className="bg-card rounded-lg shadow-lg p-6 overflow-hidden">
-            {isClient && <ValueChain3D height={400} />}
+            {mounted && <ValueChain3D height={50} />}
           </div>
         </AnimatedElement>
 
@@ -99,7 +105,11 @@ export default function HowItWorks() {
               </ul>
             </div>
             <div className="bg-card rounded-lg shadow-lg overflow-hidden h-[400px]">
-              {isClient ? <RecyclingProcess3D /> : <Skeleton className="w-full h-full" />}
+              <img
+                src="/recycling-process-diagram.png"
+                alt="Recycling Process Diagram"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </AnimatedElement>

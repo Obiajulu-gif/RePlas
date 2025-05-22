@@ -151,14 +151,16 @@ export default function Tokenomics() {
                     <CardDescription>Total Supply: 1,000,000,000 RPL</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-[300px] animate-in spin-in-3 duration-1000">
-                      <PieChart
-                        data={tokenDistribution}
-                        index="name"
-                        categories={["value"]}
-                        colors={["#16a34a", "#0ea5e9", "#f59e0b", "#8b5cf6", "#64748b"]}
-                        valueFormatter={(value) => `${value}%`}
-                      />
+                    <div className="h-[300px] w-full">
+                      {mounted && (
+                        <PieChart
+                          data={tokenDistribution}
+                          index="name"
+                          categories={["value"]}
+                          colors={["#16a34a", "#0ea5e9", "#f59e0b", "#8b5cf6", "#64748b"]}
+                          valueFormatter={(value) => `${value}%`}
+                        />
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -170,9 +172,13 @@ export default function Tokenomics() {
                       <li
                         key={index}
                         className="flex items-center gap-3 transform transition-all hover:translate-x-1 duration-300"
-                        style={{ animationDelay: `${index * 100}ms` }}
                       >
-                        <div className={`h-4 w-4 rounded-full bg-${getColor(index)}-500`}></div>
+                        <div
+                          className="h-4 w-4 rounded-full"
+                          style={{
+                            backgroundColor: ["#16a34a", "#0ea5e9", "#f59e0b", "#8b5cf6", "#64748b"][index % 5],
+                          }}
+                        ></div>
                         <div className="flex-1">
                           <div className="flex justify-between mb-1">
                             <span className="font-medium">{item.name}</span>
@@ -180,9 +186,10 @@ export default function Tokenomics() {
                           </div>
                           <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
                             <div
-                              className={`bg-${getColor(index)}-500 h-2 rounded-full animate-grow-width`}
+                              className="h-2 rounded-full animate-grow-width"
                               style={{
                                 width: `${item.value}%`,
+                                backgroundColor: ["#16a34a", "#0ea5e9", "#f59e0b", "#8b5cf6", "#64748b"][index % 5],
                                 animationDelay: `${index * 100}ms`,
                                 animationDuration: "1s",
                               }}
@@ -364,9 +371,4 @@ export default function Tokenomics() {
       </div>
     </section>
   )
-}
-
-function getColor(index: number) {
-  const colors = ["green", "blue", "amber", "purple", "slate"]
-  return colors[index % colors.length]
 }

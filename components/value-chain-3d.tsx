@@ -1,17 +1,48 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls, Environment, Float, Text } from "@react-three/drei"
 import { Suspense } from "react"
 import * as THREE from "three"
 import { useWebGLCleanup, useLimitedAnimation } from "@/lib/three-utils"
 
+function ErrorFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-muted/20 rounded-lg">
+      <div className="text-center p-4">
+        <p className="text-muted-foreground">Could not load 3D visualization</p>
+        <p className="text-sm text-muted-foreground mt-2">Your browser may not support WebGL or 3D graphics</p>
+      </div>
+    </div>
+  )
+}
+
 export default function ValueChain3D({ height = 300 }) {
   const canvasRef = useRef(null)
+  const [error, setError] = useState(false)
+  const [webGLSupported, setWebGLSupported] = useState(true)
+
+  // Check for WebGL support
+  useEffect(() => {
+    try {
+      const canvas = document.createElement("canvas")
+      const isSupported = !!(
+        window.WebGLRenderingContext &&
+        (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+      )
+      setWebGLSupported(isSupported)
+    } catch (e) {
+      setWebGLSupported(false)
+    }
+  }, [])
 
   // Clean up WebGL context when component unmounts
   useWebGLCleanup(canvasRef)
+
+  if (!webGLSupported || error) {
+    return <ErrorFallback />
+  }
 
   return (
     <div style={{ height }} className="w-full">
@@ -20,6 +51,7 @@ export default function ValueChain3D({ height = 300 }) {
         shadows
         camera={{ position: [0, 0, 10], fov: 45 }}
         dpr={[1, 2]} // Limit pixel ratio for better performance
+        onError={() => setError(true)}
       >
         <Suspense fallback={null}>
           <Environment preset="city" />
