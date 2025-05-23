@@ -661,11 +661,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **Website**: [https://replas.org](https://replas.org)
-- **Email**: hello@replas.org
-- **Twitter**: [@RePlasOfficial](https://twitter.com/RePlasOfficial)
-- **LinkedIn**: [RePlas Platform](https://linkedin.com/company/replas)
-- **GitHub**: [RePlas Organization](https://github.com/replas-org)
 
 ---
 
