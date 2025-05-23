@@ -79,19 +79,15 @@ export default function Tokenomics() {
         <div className="grid md:grid-cols-5 gap-8 mb-16">
           <div className="md:col-span-2 flex items-center justify-center">
             <AnimatedElement id="token-3d-model" animation="fade-in-left">
-              {mounted ? (
-                <PlasticToken size={300} />
-              ) : (
-                <div className="relative w-[300px] h-[300px]">
-                  <Image
-                    src="/digital-token.png"
-                    alt="RePlas Token"
-                    width={300}
-                    height={300}
-                    className="rounded-full object-cover"
-                  />
-                </div>
-              )}
+              <div className="relative w-[300px] h-[300px]">
+                <Image
+                  src="/digital-token.png"
+                  alt="RePlas Token"
+                  width={300}
+                  height={300}
+                  className="rounded-full object-cover"
+                />
+              </div>
             </AnimatedElement>
           </div>
 

@@ -28,7 +28,7 @@ export default function Testimonials() {
         "RePlas has transformed how we manage our plastic waste. The blockchain traceability gives us complete visibility into our recycling chain.",
       name: "Sarah Johnson",
       title: "Sustainability Director, EcoPackaging Inc.",
-      avatar: "/testimonial-avatar-1.jpg",
+      avatar: "/testimonial-avatar-1.png",
       rating: 5,
     },
     {
@@ -36,7 +36,7 @@ export default function Testimonials() {
         "As a recycler, the token incentives have significantly increased our collection rates. The AI analytics help us optimize our operations.",
       name: "Michael Chen",
       title: "Operations Manager, GreenRecycle",
-      avatar: "/testimonial-avatar-2.jpg",
+      avatar: "/testimonial-avatar-2.png",
       rating: 5,
     },
     {
