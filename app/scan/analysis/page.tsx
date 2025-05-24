@@ -393,20 +393,29 @@ export default function AnalysisPage() {
 
       {!isLoading && !error && result && (
         <div className="space-y-5">
-          {/* Results card - improved styling */}
+          {/* Enhanced Results Display with Tabs */}
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-800">
-            {/* Header section with a gradient background */}
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-5 border-b border-gray-200 dark:border-gray-800">
-              {/* Header with type and info */}
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{result.plasticType}</h2>
+            {/* Plastic Type Header with Dynamic Color Gradient */}
+            <div className={`p-5 border-b border-gray-200 dark:border-gray-800 bg-gradient-to-r 
+              ${result.recyclingCode === 1 ? 'from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/30' :
+                result.recyclingCode === 2 ? 'from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-900/30' :
+                result.recyclingCode === 3 ? 'from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-900/30' :
+                result.recyclingCode === 4 ? 'from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-900/30' :
+                result.recyclingCode === 5 ? 'from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-900/30' :
+                result.recyclingCode === 6 ? 'from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-900/30' :
+                'from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-800/70'
+              }`}
+            >
+              {/* Plastic Classification Hero Section */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex-1">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{result.plasticType}</h2>
+                  
+                  <div className="flex flex-wrap items-center gap-2">
                     <div className={getTypeBadgeStyles(result.recyclingCode)}>
                       Type {result.recyclingCode}
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
+                    
                     <Badge 
                       variant={result.recyclable ? "default" : "destructive"}
                       className={`px-2 py-0.5 ${result.recyclable ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'}`}
@@ -423,111 +432,149 @@ export default function AnalysisPage() {
                         </>
                       )}
                     </Badge>
+                    
                     <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full">
                       <span>{weight} {unit}</span>
                     </span>
                   </div>
                 </div>
                 
-                {/* Plastic type symbol - more polished */}
-                <div className="w-16 h-16 rounded-full flex items-center justify-center bg-white dark:bg-gray-800 shadow-md relative border-2 border-gray-100 dark:border-gray-700">
-                  <Recycle className={`h-8 w-8 text-${getPlasticTypeColor(result.recyclingCode)}-500 opacity-50`} />
+                {/* Enhanced Recycling Symbol */}
+                <div className={`h-20 w-20 rounded-full flex-shrink-0 relative shadow-lg border-2 
+                  ${result.recyclingCode === 1 ? 'border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-900/30' :
+                    result.recyclingCode === 2 ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/30' :
+                    result.recyclingCode === 3 ? 'border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/30' :
+                    result.recyclingCode === 4 ? 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/30' :
+                    result.recyclingCode === 5 ? 'border-purple-200 bg-purple-50 dark:border-purple-800 dark:bg-purple-900/30' :
+                    result.recyclingCode === 6 ? 'border-orange-200 bg-orange-50 dark:border-orange-800 dark:bg-orange-900/30' :
+                    'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
+                  }`}
+                >
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-xl font-bold text-gray-800 dark:text-gray-200">{result.recyclingCode}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="p-5">
-              {/* Image and description - improved layout */}
-              <div className="flex gap-4 mb-6">
-                {imageSource && (
-                  <div className="relative w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <Image
-                      src={imageSource}
-                      alt="Plastic item"
-                      fill
-                      className="object-cover"
+                    <Recycle className={`h-10 w-10 
+                      ${result.recyclingCode === 1 ? 'text-blue-500' :
+                        result.recyclingCode === 2 ? 'text-green-500' :
+                        result.recyclingCode === 3 ? 'text-yellow-500' :
+                        result.recyclingCode === 4 ? 'text-red-500' :
+                        result.recyclingCode === 5 ? 'text-purple-500' :
+                        result.recyclingCode === 6 ? 'text-orange-500' :
+                        'text-gray-500'
+                      } opacity-60`} 
                     />
                   </div>
-                )}
-                <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 leading-relaxed">
-                    {result.description}
-                  </p>
-                  
-                  {/* Confidence meter - improved visualization */}
-                  <div className="flex flex-col">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-gray-500 dark:text-gray-400">AI Confidence</span>
-                      <span className={`text-xs font-medium ${
-                        result.confidence > 80 ? 'text-green-600 dark:text-green-400' : 
-                        result.confidence > 60 ? 'text-yellow-600 dark:text-yellow-400' : 
-                        'text-red-600 dark:text-red-400'
-                      }`}>
-                        {result.confidence}%
-                      </span>
-                    </div>
-                    <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full rounded-full ${
-                          result.confidence > 80 ? 'bg-green-500' : 
-                          result.confidence > 60 ? 'bg-yellow-500' : 
-                          'bg-red-500'
-                        }`}
-                        style={{ width: `${result.confidence}%` }}
-                      ></div>
-                    </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className={`text-2xl font-bold 
+                      ${result.recyclingCode === 1 ? 'text-blue-700 dark:text-blue-300' :
+                        result.recyclingCode === 2 ? 'text-green-700 dark:text-green-300' :
+                        result.recyclingCode === 3 ? 'text-yellow-700 dark:text-yellow-300' :
+                        result.recyclingCode === 4 ? 'text-red-700 dark:text-red-300' :
+                        result.recyclingCode === 5 ? 'text-purple-700 dark:text-purple-300' :
+                        result.recyclingCode === 6 ? 'text-orange-700 dark:text-orange-300' :
+                        'text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      {result.recyclingCode}
+                    </span>
                   </div>
                 </div>
               </div>
               
-              <div className="space-y-4">
-                {/* Environmental impact - enhanced card */}
-                <div className="p-4 rounded-lg bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-900/30 border border-green-200 dark:border-green-900/40">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="p-1.5 bg-green-100 dark:bg-green-800/40 rounded-full">
-                      <Leaf className="h-4 w-4 text-green-600 dark:text-green-400" />
-                    </div>
-                    <h3 className="font-medium text-green-800 dark:text-green-300">Environmental Impact</h3>
-                  </div>
-                  <p className="text-sm text-green-700 dark:text-green-200 pl-8">{result.environmentalImpact}</p>
+              {/* Confidence Meter with Improved Visualization */}
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">AI Confidence</span>
+                  <span className={`text-xs font-medium ${
+                    result.confidence > 80 ? 'text-green-600 dark:text-green-400' : 
+                    result.confidence > 60 ? 'text-yellow-600 dark:text-yellow-400' : 
+                    'text-red-600 dark:text-red-400'
+                  }`}>
+                    {result.confidence}%
+                  </span>
                 </div>
-                
-                {/* Usage tips - enhanced visualization */}
-                <div className="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/30 border border-blue-200 dark:border-blue-900/40">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="p-1.5 bg-blue-100 dark:bg-blue-800/40 rounded-full">
-                      <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <h3 className="font-medium text-blue-800 dark:text-blue-300">Usage Tips</h3>
-                  </div>
-                  <ul className="space-y-2.5 pl-1">
-                    {result.usageTips.map((tip, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-blue-700 dark:text-blue-200">
-                        <div className="mt-0.5 min-w-5 h-5 rounded-full bg-blue-200 dark:bg-blue-800/60 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xs font-medium text-blue-700 dark:text-blue-300">{i+1}</span>
-                        </div>
-                        <span className="pt-0.5">{tip}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                  <div 
+                    className={`h-full rounded-full ${
+                      result.confidence > 80 ? 'bg-gradient-to-r from-green-400 to-green-500' : 
+                      result.confidence > 60 ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' : 
+                      'bg-gradient-to-r from-red-400 to-red-500'
+                    }`}
+                    style={{ width: `${result.confidence}%` }}
+                  ></div>
                 </div>
               </div>
             </div>
             
-            {/* Chat button - enhanced styling */}
+            {/* Main Content Area with Improved Visual Organization */}
+            <div className="p-0">
+              {/* Content Area with Enhanced Layout */}
+              <div className="p-5">
+                {/* Overview Section */}
+                <div className="flex gap-4 mb-6">
+                  {imageSource && (
+                    <div className="relative w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow">
+                      <Image
+                        src={imageSource}
+                        alt="Plastic item"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">About This Plastic</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {result.description}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Enhanced Information Cards */}
+                <div className="space-y-4">
+                  {/* Environmental Impact Card with Improved Visual Design */}
+                  <div className="p-4 rounded-lg bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-900/30 border border-green-200 dark:border-green-800/50 transition-all duration-150 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="p-2 bg-green-100 dark:bg-green-800/40 rounded-full">
+                        <Leaf className="h-4 w-4 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h3 className="font-medium text-green-800 dark:text-green-300">Environmental Impact</h3>
+                    </div>
+                    <p className="text-sm text-green-700 dark:text-green-200 pl-9 leading-relaxed">{result.environmentalImpact}</p>
+                  </div>
+                  
+                  {/* Usage Tips with Improved Readability */}
+                  <div className="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/30 border border-blue-200 dark:border-blue-800/50 transition-all duration-150 hover:shadow-md">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-2 bg-blue-100 dark:bg-blue-800/40 rounded-full">
+                        <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <h3 className="font-medium text-blue-800 dark:text-blue-300">Usage & Recycling Tips</h3>
+                    </div>
+                    <div className="space-y-3 pl-1">
+                      {result.usageTips.map((tip, i) => (
+                        <div key={i} className="flex p-2 rounded-lg bg-white/80 dark:bg-gray-800/50 border border-blue-100 dark:border-blue-800/30">
+                          <div className="mt-0.5 min-w-6 h-6 mr-3 rounded-full bg-blue-100 dark:bg-blue-800/60 flex items-center justify-center flex-shrink-0">
+                            <span className="text-xs font-medium text-blue-700 dark:text-blue-300">{i+1}</span>
+                          </div>
+                          <p className="text-sm text-blue-700 dark:text-blue-200">{tip}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Enhanced Call To Action Section */}
             <div className="px-5 py-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/80 border-t border-gray-200 dark:border-gray-700">
               <Button 
                 onClick={proceedToChat} 
-                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white font-medium shadow-sm"
+                className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white font-medium shadow-md transition-all duration-300 hover:shadow-lg"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
                 Chat with AI about This Plastic
               </Button>
               <p className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2">
-                Get personalized recycling advice and alternatives
+                Get personalized recycling advice and eco-friendly alternatives
               </p>
             </div>
           </div>

@@ -189,35 +189,74 @@ export function generatePlasticIdentificationPrompt(base64Image: string): any {
             }
           },
           {
-            text: `Analyze this image of a plastic item and identify the plastic type with high precision.
-            
-            IMPORTANT CONSIDERATIONS:
-            - Focus on the recycling symbol (triangle with a number 1-7 inside) if visible
-            - Look for texture, color, transparency, and other visual characteristics of the plastic
-            - Consider the shape and purpose of the item for contextual clues
-            - If uncertain, provide your best estimate with appropriate confidence level
-            
-            DETAILED RESPONSE REQUIRED:
-            1. The exact plastic type name (e.g., "Polyethylene Terephthalate", "High-Density Polyethylene")
-            2. The recycling code (1-7) with 7 being "Other" or unknown plastics
-            3. A detailed description of common uses and characteristics
-            4. Whether it's commonly recyclable in standard facilities
-            5. Your confidence level of identification as a percentage (0-100)
-            6. Environmental impact assessment (decomposition time, toxicity concerns, etc.)
-            7. At least 3 specific usage tips or safe handling practices
-            
-            FORMAT RESPONSE AS A STRUCTURED JSON OBJECT:
-            {
-              "plasticType": string,       // Full name of plastic type
-              "recyclingCode": number,     // Number between 1-7
-              "description": string,       // 2-3 sentences about the plastic
-              "recyclable": boolean,       // true/false
-              "confidence": number,        // 0-100
-              "environmentalImpact": string, // Environmental concerns
-              "usageTips": string[]        // Array of handling tips
-            }
-            
-            If you cannot identify the plastic type with at least 40% confidence, return a JSON with default values, low confidence, and recommendations for better identification.`
+            text: `## PLASTIC IDENTIFICATION AND ANALYSIS REQUEST
+
+I need detailed analysis of this plastic item. Please analyze with high precision.
+
+### VISUAL ANALYSIS GUIDELINES:
+1. PRIMARY: Check for recycling symbol (triangular arrow symbol with number 1-7)
+2. SECONDARY: Analyze visual properties:
+   - Transparency: Clear, translucent, opaque?
+   - Rigidity: Rigid, semi-rigid, flexible?
+   - Surface: Glossy, matte, textured?
+   - Color: Natural, colored, transparent?
+   - Thickness: Thin film, moderate, thick?
+3. CONTEXTUAL: Consider the item's apparent purpose/use case
+4. ADVANCED: Note any identifying marks, product codes, or manufacturer information
+
+### PLASTIC TYPES REFERENCE CHART:
+| Code | Abbreviation | Full Name | Common Properties | Typical Uses |
+|------|--------------|-----------|-------------------|--------------|
+| 1    | PET/PETE     | Polyethylene Terephthalate | Clear, tough, barrier to gas/moisture | Water bottles, food containers |
+| 2    | HDPE         | High-Density Polyethylene | Stiff, strong, resistant to moisture | Milk jugs, detergent bottles |
+| 3    | PVC/V        | Polyvinyl Chloride | Rigid or flexible, good chemical resistance | Pipes, siding, medical tubing |
+| 4    | LDPE         | Low-Density Polyethylene | Flexible, tough, moisture resistant | Plastic bags, squeeze bottles |
+| 5    | PP           | Polypropylene | Heat resistant, chemical resistant, barrier to moisture | Yogurt containers, bottle caps |
+| 6    | PS           | Polystyrene | Versatile, rigid or foamed, clear | Disposable cups, packaging |
+| 7    | OTHER        | Various (PC, ABS, nylon, etc.) | Properties vary widely | Various specialty items |
+
+### DETAILED RESPONSE REQUIRED:
+Please provide a comprehensive analysis with the following components:
+
+1. IDENTIFICATION:
+   - Full plastic type name (e.g., "Polyethylene Terephthalate")
+   - Recycling code (1-7) with reasoning for your classification
+   - Confidence level (0-100%) with explanation for uncertainty if below 90%
+
+2. CHARACTERISTICS:
+   - Physical properties description
+   - Common commercial uses
+   - Key identifying features visible in the image
+
+3. RECYCLABILITY:
+   - Recyclability status in standard facilities
+   - Any special recycling considerations
+   - Regional variations in recyclability if relevant
+
+4. ENVIRONMENTAL IMPACT:
+   - Decomposition timeline
+   - Environmental toxicity concerns
+   - Marine impact if disposed improperly
+   - Carbon footprint relative to other plastics
+
+5. CONSUMER ADVICE:
+   - Safe handling practices
+   - Reuse potential and safety considerations
+   - Eco-friendly alternatives
+   - Proper disposal methods
+
+### FORMAT RESPONSE AS A STRUCTURED JSON:
+{
+  "plasticType": string,       // Full scientific name of plastic
+  "recyclingCode": number,     // Integer between 1-7
+  "description": string,       // 2-3 sentences about properties and uses
+  "recyclable": boolean,       // true/false with current technology
+  "confidence": number,        // 0-100 percentage
+  "environmentalImpact": string, // 1-2 sentences on ecological impact
+  "usageTips": string[]        // Array of 3-5 handling/disposal recommendations
+}
+
+If identification confidence is below 40%, include recommendations for better identification methods in the usageTips field, but still provide your best assessment based on visible evidence.`
           }
         ]
       }
