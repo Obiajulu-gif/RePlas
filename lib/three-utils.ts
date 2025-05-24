@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import * as THREE from "three"
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader"
 
 // Utility to clean up WebGL context when component unmounts
 export function useWebGLCleanup(canvasRef) {
@@ -69,7 +70,7 @@ export function isWebGLSupported() {
 // Utility to preload fonts for Three.js
 export function preloadFont(url) {
   return new Promise((resolve, reject) => {
-    const loader = new THREE.FontLoader()
+    const loader = new FontLoader()
     loader.load(
       url,
       (font) => resolve(font),

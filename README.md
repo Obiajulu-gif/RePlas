@@ -204,7 +204,7 @@ git clone https://github.com/your-username/replas-platform.git
 cd replas-platform
 
 # Install dependencies
-npm install
+npm install --legacy-peer-deps
 
 # Copy environment variables
 cp .env.example .env.local
@@ -221,7 +221,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
 ```bash
 # Install frontend dependencies
-npm install
+npm install --legacy-peer-deps
 
 # Install additional packages for development
 npm install -D @types/node @types/react @types/react-dom

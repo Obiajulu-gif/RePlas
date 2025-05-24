@@ -12,7 +12,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import {
   Recycle,
   BarChart3,
-  Search,
+  Camera,
   ShoppingBag,
   Menu,
   Users,
@@ -45,9 +45,9 @@ export function Navbar() {
       icon: <BarChart3 className="h-4 w-4 mr-2" />,
     },
     {
-      name: "Scan",
+      name: "Plastic Scan",
       path: "/scan",
-      icon: <Search className="h-4 w-4 mr-2" />,
+      icon: <Camera className="h-4 w-4 mr-2" />,
     },
     {
       name: "Marketplace",
