@@ -28,3 +28,21 @@ temp-main/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# macOS files
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Coverage and cache directories
+/coverage/
+/.cache/
+
+# Additional build artifacts
+/dist/
