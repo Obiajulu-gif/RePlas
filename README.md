@@ -142,17 +142,16 @@ graph TB
         A[Landing Page]
         B[Dashboard]
         C[Submit Plastic]
-        D[QR Scanner]
+        D[Plastic Scan Page]
         E[Marketplace]
         F[Analytics]
     end
     
-    subgraph "Backend (Express.js)"
+    subgraph "Backend Services"
         G[User Management API]
         H[Plastic Submission API]
         I[Token Reward API]
         J[AI Service API]
-        K[QR Code API]
         L[Material Tracker API]
     end
     
@@ -161,6 +160,12 @@ graph TB
         N[Traceability Contract]
         O[Impact NFT Contract]
         P[Escrow Contract]
+    end
+    
+    subgraph "AI Pipeline & Scalability"
+        X[Message Queue (RabbitMQ/Kafka)]
+        Y[AI Worker Service]
+        Z[Cache (Redis)]
     end
     
     subgraph "External Services"
@@ -172,21 +177,34 @@ graph TB
     
     A --> G
     B --> H
-    C --> I
-    D --> K
+    C --> H
+    D --> J
     E --> L
     F --> J
-    
+
     G --> Q
     H --> R
     I --> M
-    J --> S
-    K --> N
+    J --> X
+    X --> Y
+    Y --> S
+    Y --> Z
+    Z --> J
     L --> O
-    
+
     M --> P
     N --> T
 ```
+
+### ⚙️ Scalability & AI Integration Patterns
+
+To ensure high availability and performance as AI features grow in complexity and usage, consider the following integration and scaling strategies:
+
+- **Direct Synchronous Calls**: For low-volume or prototyping stages, the frontend can call the AI Service API (`/api/analyze-plastic` or `/api/chat`) directly, reducing system complexity but limiting throughput.
+- **Asynchronous Processing**: Offload heavy AI workloads to a message queue (RabbitMQ/Kafka) and background AI worker service to decouple request handling from processing time, improving responsiveness and failure isolation.
+- **Dedicated AI Microservice**: Isolate the AI logic into its own microservice or serverless function, allowing independent scaling (CPU/GPU allocation), separate deployment pipelines, and tighter resource management.
+- **Caching Layer**: Use Redis to cache frequent image analysis results or AI responses, reducing redundant calls to Gemini AI and lowering latency.
+- **Horizontal Scaling & Load Balancing**: Deploy multiple instances of the AI Service and worker services behind a load balancer (e.g., Vercel functions, AWS ALB), enabling auto-scaling based on load and traffic patterns.
 
 ## 🚀 Quick Start
 
