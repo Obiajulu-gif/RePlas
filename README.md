@@ -138,62 +138,62 @@ RePlas addresses these challenges by:
 
 ```mermaid
 graph TB
-    subgraph "Frontend (Next.js)"
-        A[Landing Page]
-        B[Dashboard]
-        C[Submit Plastic]
-        D[Plastic Scan Page]
-        E[Marketplace]
-        F[Analytics]
-    end
-    
-    subgraph "Backend Services"
-        G[User Management API]
-        H[Plastic Submission API]
-        I[Token Reward API]
-        J[AI Service API]
-        L[Material Tracker API]
-    end
-    
-    subgraph "Blockchain (Celo)"
-        M[RePlas Token Contract]
-        N[Traceability Contract]
-        O[Impact NFT Contract]
-        P[Escrow Contract]
-    end
-    
-    subgraph "AI Pipeline & Scalability"
-        X[Message Queue (RabbitMQ/Kafka)]
-        Y[AI Worker Service]
-        Z[Cache (Redis)]
-    end
-    
-    subgraph "External Services"
-        Q[MongoDB Atlas]
-        R[AWS S3]
-        S[Gemini AI]
-        T[IPFS]
-    end
-    
-    A --> G
-    B --> H
-    C --> H
-    D --> J
-    E --> L
-    F --> J
+  subgraph Frontend (Next.js)
+    A[Landing Page]
+    B[Dashboard]
+    C[Submit Plastic]
+    D[Plastic Scan Page]
+    E[Marketplace]
+    F[Analytics]
+  end
 
-    G --> Q
-    H --> R
-    I --> M
-    J --> X
-    X --> Y
-    Y --> S
-    Y --> Z
-    Z --> J
-    L --> O
+  subgraph Backend Services
+    G[User Management API]
+    H[Plastic Submission API]
+    I[Token Reward API]
+    J[AI Service API]
+    L[Material Tracker API]
+  end
 
-    M --> P
-    N --> T
+  subgraph Blockchain (Celo)
+    M[RePlas Token Contract]
+    N[Traceability Contract]
+    O[Impact NFT Contract]
+    P[Escrow Contract]
+  end
+
+  subgraph AI Pipeline & Scalability
+    X[Message Queue (RabbitMQ/Kafka)]
+    Y[AI Worker Service]
+    Z[Cache (Redis)]
+  end
+
+  subgraph External Services
+    Q[MongoDB Atlas]
+    R[AWS S3]
+    S[Gemini AI]
+    T[IPFS]
+  end
+
+  A --> G
+  B --> H
+  C --> H
+  D --> J
+  E --> L
+  F --> J
+
+  G --> Q
+  H --> R
+  I --> M
+  J --> X
+  X --> Y
+  Y --> S
+  Y --> Z
+  Z --> J
+  L --> O
+
+  M --> P
+  N --> T
 ```
 
 ### ⚙️ Scalability & AI Integration Patterns
