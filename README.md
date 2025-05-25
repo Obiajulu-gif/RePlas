@@ -138,7 +138,7 @@ RePlas addresses these challenges by:
 
 ```mermaid
 graph TB
-  subgraph Frontend (Next.js)
+  subgraph "Frontend (Next.js)"
     A[Landing Page]
     B[Dashboard]
     C[Submit Plastic]
@@ -147,7 +147,7 @@ graph TB
     F[Analytics]
   end
 
-  subgraph Backend Services
+  subgraph "Backend Services"
     G[User Management API]
     H[Plastic Submission API]
     I[Token Reward API]
@@ -155,20 +155,20 @@ graph TB
     L[Material Tracker API]
   end
 
-  subgraph Blockchain (Celo)
+  subgraph "Blockchain (Celo)"
     M[RePlas Token Contract]
     N[Traceability Contract]
     O[Impact NFT Contract]
     P[Escrow Contract]
   end
 
-  subgraph AI Pipeline & Scalability
+  subgraph "AI Pipeline & Scalability"
     X[Message Queue (RabbitMQ/Kafka)]
     Y[AI Worker Service]
     Z[Cache (Redis)]
   end
 
-  subgraph External Services
+  subgraph "External Services"
     Q[MongoDB Atlas]
     R[AWS S3]
     S[Gemini AI]
