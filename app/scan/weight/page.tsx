@@ -185,40 +185,6 @@ export default function WeightInputPage() {
                   </Select>
                 </div>
               </div>
-              
-              {/* Weight visualization helper */}
-              <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
-                <div className="flex items-center gap-2 mb-2">
-                  <BarChart2 className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Weight reference</span>
-                </div>
-                <div className="grid grid-cols-4 gap-2">
-                  <div className="flex flex-col items-center">
-                    <div className="w-full h-8 bg-gray-100 dark:bg-gray-800 rounded-sm mb-1 relative overflow-hidden">
-                      <div className="absolute bottom-0 left-0 right-0 h-1/5 bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">5g</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-full h-8 bg-gray-100 dark:bg-gray-800 rounded-sm mb-1 relative overflow-hidden">
-                      <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">15g</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-full h-8 bg-gray-100 dark:bg-gray-800 rounded-sm mb-1 relative overflow-hidden">
-                      <div className="absolute bottom-0 left-0 right-0 h-3/5 bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">30g</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-full h-8 bg-gray-100 dark:bg-gray-800 rounded-sm mb-1 relative overflow-hidden">
-                      <div className="absolute bottom-0 left-0 right-0 h-4/5 bg-gray-300 dark:bg-gray-700"></div>
-                    </div>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">50g+</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 

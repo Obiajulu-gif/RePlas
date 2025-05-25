@@ -78,6 +78,22 @@ export default function PlasticScanPage() {
         streamRef.current.getTracks().forEach(track => track.stop())
       }
       
+      // Use Permissions API to check camera permission state
+      if (navigator.permissions) {
+        try {
+          const status = await navigator.permissions.query({ name: 'camera' as PermissionName })
+          if (status.state === 'denied') {
+            // Permission denied: show guide and abort
+            setIsCameraActive(false)
+            setError('Camera access has been denied. Please enable camera permission in your browser settings.')
+            return
+          }
+          // If prompt or granted, proceed to request access (will trigger prompt if needed)
+        } catch (permErr) {
+          console.warn('Permissions API error:', permErr)
+        }
+      }
+      
       // Use our polyfill to get camera stream with better error handling
       const stream = await requestCameraAccess({ 
         video: { facingMode: 'environment' } 
