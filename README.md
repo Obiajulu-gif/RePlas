@@ -163,9 +163,9 @@ graph TB
   end
 
   subgraph "AI Pipeline & Scalability"
-    X[Message Queue (RabbitMQ/Kafka)]
-    Y[AI Worker Service]
-    Z[Cache (Redis)]
+    X["Message Queue (RabbitMQ/Kafka)"]
+    Y["AI Worker Service"]
+    Z["Cache (Redis)"]
   end
 
   subgraph "External Services"
