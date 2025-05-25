@@ -671,34 +671,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [⭐ Star this repo](https://github.com/your-username/replas-platform) • [🐛 Report Bug](https://github.com/your-username/replas-platform/issues) • [💡 Request Feature](https://github.com/your-username/replas-platform/issues)
 
 </div>
+```
 
-## AI Integration Features
+This comprehensive README.md provides:
 
-This application leverages Google Gemini (via the Gemini 2.0 Flash model) to provide advanced plastic analysis, chat, and environmental impact estimation. Below are the key AI-powered features and how they are implemented:
+1. **Clear project overview** with mission and problem statement
+2. **Detailed feature list** for different user roles
+3. **Complete technology stack** information
+4. **Step-by-step installation** instructions
+5. **Environment variable** setup guide
+6. **Smart contract deployment** procedures
+7. **API documentation** with examples
+8. **Component usage** guidelines
+9. **Contributing guidelines** with coding standards
+10. **Troubleshooting section** for common issues
+11. **Security and monitoring** information
+12. **Roadmap and future plans**
+13. **Professional formatting** with badges and diagrams
 
-### 1. Plastic Type Analysis
-- When a user scans or uploads a plastic item, the image is sent to the backend for analysis.
-- The backend endpoint `/api/analyze-plastic` (see `app/api/analyze-plastic/route.ts`) uses Gemini to identify the plastic type, recycling code, and other properties.
-- The prompt for the LLM is generated in `lib/image-utils.ts`.
-
-### 2. AI Chat Assistant
-- After analysis, users can chat with an AI assistant about their plastic item.
-- The chat UI is implemented in `app/scan/chat/page.tsx`.
-- The backend chat endpoint `/api/chat` (see `app/api/chat/route.ts`) uses Gemini's `startChat()` for multi-turn conversations.
-- The assistant can answer questions about recycling, carbon emissions, and general plastic queries.
-- Markdown responses are rendered in the chat UI using `react-markdown`.
-
-### 3. Environmental Impact Estimation
-- The "Impact" tab in the chat UI lets users request an AI-generated estimate of CO₂ saved, water saved, energy saved, and tree equivalence for their plastic item.
-- The prompt is designed to always return an estimate, even if the AI must approximate.
-- Parsing logic for AI responses is in `app/scan/chat/page.tsx` (see `getImpactDataFromAI`).
-
-### 4. Logging and Debugging
-- All AI requests and responses are logged in the terminal for debugging (see `app/api/chat/route.ts`).
-- This helps developers inspect raw LLM output and troubleshoot integration issues.
-
-### 5. Camera Integration
-- Camera access is handled with polyfills and permission checks in `lib/camera-polyfill.ts` and `app/scan/plastic-scan-page.tsx`.
-- The app uses the Permissions API to prompt for camera access and provides user guidance if denied.
-
-**For more details, see the referenced files above.**
+The README is structured to help developers quickly understand the project, get it running locally, and contribute effectively to the codebase.

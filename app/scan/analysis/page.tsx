@@ -475,35 +475,35 @@ export default function AnalysisPage() {
                     >
                       {result.recyclingCode}
                     </span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Confidence Meter with Improved Visualization */}
-              <div className="mt-4">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">AI Confidence</span>
-                  <span className={`text-xs font-medium ${
-                    result.confidence > 80 ? 'text-green-600 dark:text-green-400' : 
-                    result.confidence > 60 ? 'text-yellow-600 dark:text-yellow-400' : 
-                    'text-red-600 dark:text-red-400'
-                  }`}>
-                    {result.confidence}%
-                  </span>
-                </div>
-                <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                  <div 
-                    className={`h-full rounded-full ${
-                      result.confidence > 80 ? 'bg-gradient-to-r from-green-400 to-green-500' : 
-                      result.confidence > 60 ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' : 
-                      'bg-gradient-to-r from-red-400 to-red-500'
-                    }`}
-                    style={{ width: `${result.confidence}%` }}
-                  ></div>
                 </div>
               </div>
             </div>
             
+              {/* Confidence Meter with Improved Visualization */}
+              <div className="mt-4">
+                    <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">AI Confidence</span>
+                      <span className={`text-xs font-medium ${
+                        result.confidence > 80 ? 'text-green-600 dark:text-green-400' : 
+                        result.confidence > 60 ? 'text-yellow-600 dark:text-yellow-400' : 
+                        'text-red-600 dark:text-red-400'
+                      }`}>
+                        {result.confidence}%
+                      </span>
+                    </div>
+                    <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full rounded-full ${
+                      result.confidence > 80 ? 'bg-gradient-to-r from-green-400 to-green-500' : 
+                      result.confidence > 60 ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' : 
+                      'bg-gradient-to-r from-red-400 to-red-500'
+                        }`}
+                        style={{ width: `${result.confidence}%` }}
+                      ></div>
+                  </div>
+                </div>
+              </div>
+              
             {/* Main Content Area with Improved Visual Organization */}
             <div className="p-0">
               {/* Content Area with Enhanced Layout */}
@@ -550,14 +550,14 @@ export default function AnalysisPage() {
                       <h3 className="font-medium text-blue-800 dark:text-blue-300">Usage & Recycling Tips</h3>
                     </div>
                     <div className="space-y-3 pl-1">
-                      {result.usageTips.map((tip, i) => (
+                    {result.usageTips.map((tip, i) => (
                         <div key={i} className="flex p-2 rounded-lg bg-white/80 dark:bg-gray-800/50 border border-blue-100 dark:border-blue-800/30">
                           <div className="mt-0.5 min-w-6 h-6 mr-3 rounded-full bg-blue-100 dark:bg-blue-800/60 flex items-center justify-center flex-shrink-0">
-                            <span className="text-xs font-medium text-blue-700 dark:text-blue-300">{i+1}</span>
+                          <span className="text-xs font-medium text-blue-700 dark:text-blue-300">{i+1}</span>
                           </div>
                           <p className="text-sm text-blue-700 dark:text-blue-200">{tip}</p>
                         </div>
-                      ))}
+                    ))}
                     </div>
                   </div>
                 </div>

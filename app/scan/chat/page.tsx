@@ -390,7 +390,7 @@ export default function ChatPage() {
       setIsLoading(false)
     }
   }
-
+  
   // Update the callGeminiAPI function to include history
   const callGeminiAPI = async (prompt: any, history: HistoricalPlastic[] = []) => {
     try {
@@ -490,88 +490,88 @@ export default function ChatPage() {
         </TabsList>
         
         <TabsContent value="chat" className="flex-1 flex flex-col">
-          {error && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
+      {error && (
+        <Alert variant="destructive" className="mb-4">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
           <ScrollArea className="flex-1 p-3 border rounded-lg bg-gray-50 dark:bg-gray-900" ref={scrollAreaRef}>
-            <div className="space-y-4">
-              {messages.map((message, index) => (
-                <div 
-                  key={index} 
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div 
-                    className={`max-w-[80%] px-4 py-3 rounded-lg ${
-                      message.role === 'user' 
-                        ? 'bg-primary text-primary-foreground' 
-                        : 'bg-muted'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      {message.role === 'assistant' ? (
-                        <Bot className="h-4 w-4" />
-                      ) : (
-                        <User className="h-4 w-4" />
-                      )}
-                      <span className="text-xs font-medium">
-                        {message.role === 'assistant' ? 'AI Assistant' : 'You'}
-                      </span>
-                    </div>
+        <div className="space-y-4">
+          {messages.map((message, index) => (
+            <div 
+              key={index} 
+              className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div 
+                className={`max-w-[80%] px-4 py-3 rounded-lg ${
+                  message.role === 'user' 
+                    ? 'bg-primary text-primary-foreground' 
+                    : 'bg-muted'
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  {message.role === 'assistant' ? (
+                    <Bot className="h-4 w-4" />
+                  ) : (
+                    <User className="h-4 w-4" />
+                  )}
+                  <span className="text-xs font-medium">
+                    {message.role === 'assistant' ? 'AI Assistant' : 'You'}
+                  </span>
+                </div>
                     <div className="prose text-sm whitespace-pre-wrap">
                       <ReactMarkdown>
-                        {message.content}
+                  {message.content}
                       </ReactMarkdown>
-                    </div>
-                  </div>
                 </div>
-              ))}
-              
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="max-w-[80%] px-4 py-3 rounded-lg bg-muted">
-                    <div className="flex items-center gap-2">
-                      <Bot className="h-4 w-4" />
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
-          </ScrollArea>
+          ))}
+          
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="max-w-[80%] px-4 py-3 rounded-lg bg-muted">
+                <div className="flex items-center gap-2">
+                  <Bot className="h-4 w-4" />
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </ScrollArea>
 
           {/* Sticky input and info at bottom */}
           <div className="sticky bottom-0 bg-white dark:bg-gray-900 pt-2">
-            <div className="flex gap-2">
-              <Input
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyDown={handleKeyPress}
-                placeholder="Ask a question about this plastic..."
-                disabled={isLoading || !!error}
-                className="flex-1"
-              />
-              <Button 
-                onClick={handleSendMessage} 
-                disabled={!inputMessage.trim() || isLoading || !!error}
-                size="icon"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-              <p className="flex items-center">
-                <Info className="h-3 w-3 mr-1" />
-                Ask about recycling options, environmental impact, or alternatives
-              </p>
-            </div>
+      <div className="flex gap-2">
+        <Input
+          value={inputMessage}
+          onChange={(e) => setInputMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Ask a question about this plastic..."
+          disabled={isLoading || !!error}
+          className="flex-1"
+        />
+        <Button 
+          onClick={handleSendMessage} 
+          disabled={!inputMessage.trim() || isLoading || !!error}
+          size="icon"
+        >
+          <Send className="h-4 w-4" />
+        </Button>
+      </div>
+      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
+        <p className="flex items-center">
+          <Info className="h-3 w-3 mr-1" />
+          Ask about recycling options, environmental impact, or alternatives
+        </p>
+      </div>
           </div>
         </TabsContent>
         
