@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
-import QrScannerPage from "./qr-scanner-page"
+
+import PlasticScanPage from "./plastic-scan-page"
 
 export const metadata: Metadata = {
-  title: "QR Code Scanner | Plastic Waste Management",
-  description: "Scan QR codes to track plastic waste batches and products",
+  title: "Plastic Scanner | RePlas",
+  description: "Scan plastic items to identify type and recycling information",
 }
 
 export default function ScanPage() {
-  return <QrScannerPage />
+  return <PlasticScanPage />
 }

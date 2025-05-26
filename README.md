@@ -138,56 +138,75 @@ RePlas addresses these challenges by:
 
 ```mermaid
 graph TB
-    subgraph "Frontend (Next.js)"
-        A[Landing Page]
-        B[Dashboard]
-        C[Submit Plastic]
-        D[QR Scanner]
-        E[Marketplace]
-        F[Analytics]
-    end
-    
-    subgraph "Backend (Express.js)"
-        G[User Management API]
-        H[Plastic Submission API]
-        I[Token Reward API]
-        J[AI Service API]
-        K[QR Code API]
-        L[Material Tracker API]
-    end
-    
-    subgraph "Blockchain (Celo)"
-        M[RePlas Token Contract]
-        N[Traceability Contract]
-        O[Impact NFT Contract]
-        P[Escrow Contract]
-    end
-    
-    subgraph "External Services"
-        Q[MongoDB Atlas]
-        R[AWS S3]
-        S[Gemini AI]
-        T[IPFS]
-    end
-    
-    A --> G
-    B --> H
-    C --> I
-    D --> K
-    E --> L
-    F --> J
-    
-    G --> Q
-    H --> R
-    I --> M
-    J --> S
-    K --> N
-    L --> O
-    
-    M --> P
-    N --> T
+  subgraph "Frontend (Next.js)"
+    A[Landing Page]
+    B[Dashboard]
+    C[Submit Plastic]
+    D[Plastic Scan Page]
+    E[Marketplace]
+    F[Analytics]
+  end
+
+  subgraph "Backend Services"
+    G[User Management API]
+    H[Plastic Submission API]
+    I[Token Reward API]
+    J[AI Service API]
+    L[Material Tracker API]
+  end
+
+  subgraph "Blockchain (Celo)"
+    M[RePlas Token Contract]
+    N[Traceability Contract]
+    O[Impact NFT Contract]
+    P[Escrow Contract]
+  end
+
+  subgraph "AI Pipeline & Scalability"
+    X["Message Queue (RabbitMQ/Kafka)"]
+    Y["AI Worker Service"]
+    Z["Cache (Redis)"]
+  end
+
+  subgraph "External Services"
+    Q[MongoDB Atlas]
+    R[AWS S3]
+    S[Gemini AI]
+    T[IPFS]
+  end
+
+  A --> G
+  B --> H
+  C --> H
+  D --> J
+  E --> L
+  F --> J
+
+  G --> Q
+  H --> R
+  I --> M
+  J --> X
+  X --> Y
+  Y --> S
+  Y --> Z
+  Z --> J
+  L --> O
+
+  M --> P
+  N --> T
 ```
 
+### ⚙️ Scalability & AI Integration Patterns
+
+To ensure high availability and performance as AI features grow in complexity and usage, consider the following integration and scaling strategies:
+
+- **Direct Synchronous Calls**: For low-volume or prototyping stages, the frontend can call the AI Service API (`/api/analyze-plastic` or `/api/chat`) directly, reducing system complexity but limiting throughput.
+- **Asynchronous Processing**: Offload heavy AI workloads to a message queue (RabbitMQ/Kafka) and background AI worker service to decouple request handling from processing time, improving responsiveness and failure isolation.
+- **Dedicated AI Microservice**: Isolate the AI logic into its own microservice or serverless function, allowing independent scaling (CPU/GPU allocation), separate deployment pipelines, and tighter resource management.
+- **Caching Layer**: Use Redis to cache frequent image analysis results or AI responses, reducing redundant calls to Gemini AI and lowering latency.
+- **Horizontal Scaling & Load Balancing**: Deploy multiple instances of the AI Service and worker services behind a load balancer (e.g., Vercel functions, AWS ALB), enabling auto-scaling based on load and traffic patterns.
+
+>>>>>>> ai-feature-clean
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -204,7 +223,8 @@ git clone https://github.com/your-username/replas-platform.git
 cd replas-platform
 
 # Install dependencies
-npm install
+
+npm install --legacy-peer-deps
 
 # Copy environment variables
 cp .env.example .env.local
@@ -221,7 +241,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
 ```bash
 # Install frontend dependencies
-npm install
+npm install --legacy-peer-deps
 
 # Install additional packages for development
 npm install -D @types/node @types/react @types/react-dom

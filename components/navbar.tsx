@@ -13,6 +13,7 @@ import {
   Recycle,
   BarChart3,
   Search,
+  Camera,
   ShoppingBag,
   Menu,
   Users,
@@ -48,6 +49,11 @@ export function Navbar() {
       name: "Scan",
       path: "/scan",
       icon: <Search className="h-4 w-4 mr-2" />,
+    },
+    {
+      name: "Plastic Scan",
+      path: "/scan",
+      icon: <Camera className="h-4 w-4 mr-2" />,
     },
     {
       name: "Marketplace",
