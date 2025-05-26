@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
+import { config } from 'dotenv';
+config();
 
 // Define interface for content part
 interface ContentPart {
@@ -59,7 +61,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Get API key from environment variable
-    const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyB6j2kGAu88UqOhVNN8KSbUjijlXMfdovY";
+    const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    logWithTimestamp('Resolved Gemini API key', { apiKey: apiKey ? apiKey.substring(0,5) + '...' : undefined });
     
     // Check if API key is valid
     if (!apiKey || apiKey === 'your-gemini-api-key-goes-here' || apiKey.includes('your') || apiKey.includes('api-key')) {
