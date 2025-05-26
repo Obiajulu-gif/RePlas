@@ -106,9 +106,9 @@ export default function HowItWorks() {
             </div>
             <div className="bg-card rounded-lg shadow-lg overflow-hidden h-[400px]">
               <img
-                src="/recycling-process-diagram.png"
+                src="/recycling-process-diagram.jpeg"
                 alt="Recycling Process Diagram"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>

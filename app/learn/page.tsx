@@ -196,7 +196,7 @@ export default function LearnPage() {
             </p>
           </CardContent>
           <CardFooter className="pt-4">
-            <Button className="w-full">Start Learning</Button>
+            <Button className="w-full bg-emerald-600">Start Learning</Button>
           </CardFooter>
         </Card>
       </div>
@@ -324,7 +324,7 @@ function ResourceCard({ resource }) {
       </CardContent>
       <CardFooter className="p-4 pt-0 flex justify-between items-center">
         <div className="text-sm">By {resource.author}</div>
-        <Button size="sm" className="flex items-center gap-1">
+        <Button size="sm" className="flex items-center gap-1 bg-emerald-600">
           Read More
           <ArrowRight className="h-3 w-3 ml-1" />
         </Button>
