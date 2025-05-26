@@ -44,7 +44,7 @@ export default function Testimonials() {
         "The transparency provided by RePlas allows us to confidently report our plastic footprint reduction to stakeholders and regulators.",
       name: "Emma Rodriguez",
       title: "ESG Compliance Officer, Consumer Goods Co.",
-      avatar: "/testimonial-avatar-3.jpg",
+      avatar: "/testimonial-avatar-3.jpeg",
       rating: 5,
     },
     {
