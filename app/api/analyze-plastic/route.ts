@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get API key from environment variables
-    const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyB6j2kGAu88UqOhVNN8KSbUjijlXMfdovY";
+    const apiKey = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
     // Debug: log which key is being used
     console.log('Resolved Gemini API key:', apiKey ? apiKey.substring(0, 5) + '...' : 'undefined');
     
