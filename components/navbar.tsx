@@ -25,13 +25,15 @@ import {
   Wallet,
   Loader2,
 } from "lucide-react"
+import { ConnectWalletButton } from "@/components/connect-wallet-button"
+import { NetworkIndicator } from "@/components/network-indicator"
 
 export function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const { isConnected, isConnecting, connect, disconnect, address } = useWallet()
 
-  const isActive = (path) => {
+  const isActive = (path: string) => {
     return pathname === path
   }
 
@@ -95,12 +97,8 @@ export function Navbar() {
     },
   ]
 
-  const handleWalletAction = async () => {
-    if (isConnected) {
-      disconnect()
-    } else {
-      await connect()
-    }
+  const handleWalletAction = () => {
+    setIsOpen(false)
   }
 
   return (
@@ -155,30 +153,8 @@ export function Navbar() {
             </DropdownMenu>
           </nav>
           <div className="flex items-center space-x-2">
-            <Button
-              onClick={handleWalletAction}
-              variant="outline"
-              size="sm"
-              className={`h-9 ${isConnected ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400" : "border-emerald-600 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-400 dark:text-emerald-400"}`}
-              disabled={isConnecting}
-            >
-              {isConnecting ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Connecting...
-                </>
-              ) : isConnected ? (
-                <>
-                  <Wallet className="h-4 w-4 mr-2" />
-                  {address ? `${address.substring(0, 6)}...${address.substring(address.length - 4)}` : "Connected"}
-                </>
-              ) : (
-                <>
-                  <Wallet className="h-4 w-4 mr-2" />
-                  Connect Wallet
-                </>
-              )}
-            </Button>
+            <NetworkIndicator />
+            <ConnectWalletButton />
             <Button asChild variant="ghost" size="icon">
               <Link href="/profile">
                 <User className="h-5 w-5" />
@@ -258,32 +234,7 @@ export function Navbar() {
                       Profile
                     </Link>
                   </Button>
-                  <Button
-                    onClick={() => {
-                      handleWalletAction()
-                      setIsOpen(false)
-                    }}
-                    variant="outline"
-                    className={`w-full mt-2 justify-start ${isConnected ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : "border-emerald-600 text-emerald-600 dark:border-emerald-400 dark:text-emerald-400"}`}
-                    disabled={isConnecting}
-                  >
-                    {isConnecting ? (
-                      <>
-                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        Connecting...
-                      </>
-                    ) : isConnected ? (
-                      <>
-                        <Wallet className="h-4 w-4 mr-2" />
-                        Disconnect Wallet
-                      </>
-                    ) : (
-                      <>
-                        <Wallet className="h-4 w-4 mr-2" />
-                        Connect Wallet
-                      </>
-                    )}
-                  </Button>
+                  <ConnectWalletButton />
                 </div>
               </nav>
             </SheetContent>
