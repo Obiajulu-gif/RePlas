@@ -48,11 +48,6 @@ export function Navbar() {
       icon: <BarChart3 className="h-4 w-4 mr-2" />,
     },
     {
-      name: "Scan",
-      path: "/scan",
-      icon: <Search className="h-4 w-4 mr-2" />,
-    },
-    {
       name: "Plastic Scan",
       path: "/scan",
       icon: <Camera className="h-4 w-4 mr-2" />,

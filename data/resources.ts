@@ -1,0 +1,114 @@
+import { Resource } from '@/types/learn'
+
+export const resources: Resource[] = [
+  {
+    id: 1,
+    title: "Understanding Plastic Types and Recycling Codes",
+    description:
+      "Learn about the different types of plastic, their properties, and how to identify them using recycling codes.",
+    type: "article",
+    category: "basics",
+    readTime: "5 min read",
+    date: "2023-04-15",
+    author: "Dr. Sarah Johnson",
+    likes: 245,
+    views: 1820,
+    image: "/learn/plastic-types.png"
+  },
+  {
+    id: 2,
+    title: "The Journey of Plastic: From Production to Recycling",
+    description:
+      "Follow the lifecycle of plastic products from manufacturing to disposal and recycling in this comprehensive guide.",
+    type: "article",
+    category: "process",
+    readTime: "8 min read",
+    date: "2023-05-02",
+    author: "Michael Chen",
+    likes: 189,
+    views: 1540,
+    image: "/learn/plastic-journey.png"
+  },
+  {
+    id: 3,
+    title: "Blockchain Technology in Plastic Waste Management",
+    description:
+      "Discover how blockchain is revolutionizing plastic waste management by enabling transparency and traceability.",
+    type: "article",
+    category: "technology",
+    readTime: "6 min read",
+    date: "2023-05-20",
+    author: "Alex Rivera",
+    likes: 312,
+    views: 2150,
+    image: "/learn/blockchain-waste.png"
+  },
+  {
+    id: 4,
+    title: "How to Properly Sort and Prepare Plastics for Recycling",
+    description:
+      "A step-by-step guide on how to sort different types of plastic and prepare them for effective recycling.",
+    type: "video",
+    category: "how-to",
+    duration: "12:45",
+    date: "2023-03-18",
+    author: "Emma Wilson",
+    likes: 567,
+    views: 8920,
+    image: "/learn/sorting-plastics.png"
+  },
+  {
+    id: 5,
+    title: "The Environmental Impact of Plastic Pollution",
+    description: "An in-depth look at how plastic pollution affects our environment, wildlife, and human health.",
+    type: "video",
+    category: "environment",
+    duration: "18:30",
+    date: "2023-04-05",
+    author: "Prof. David Thompson",
+    likes: 823,
+    views: 12450,
+    image: "/learn/plastic-pollution.png"
+  },
+  {
+    id: 6,
+    title: "RePlas Token Economy: How It Works",
+    description:
+      "Understand how the RePlas token economy incentivizes plastic recycling and creates value for participants.",
+    type: "guide",
+    category: "tokenomics",
+    pages: 15,
+    date: "2023-05-10",
+    author: "RePlas Team",
+    likes: 178,
+    views: 2340,
+    image: "/learn/token-economy.png"
+  },
+  {
+    id: 7,
+    title: "Community-Based Recycling Initiatives",
+    description: "Explore successful community-based recycling programs and learn how to start one in your area.",
+    type: "guide",
+    category: "community",
+    pages: 22,
+    date: "2023-02-28",
+    author: "Sophia Martinez",
+    likes: 291,
+    views: 3560,
+    image: "/learn/community-recycling.png"
+  },
+  {
+    id: 8,
+    title: "AI in Plastic Identification and Sorting",
+    description:
+      "Learn how artificial intelligence is being used to improve plastic identification and sorting processes.",
+    type: "article",
+    category: "technology",
+    readTime: "7 min read",
+    date: "2023-06-01",
+    author: "Dr. James Lee",
+    likes: 156,
+    views: 1890,
+    image: "/learn/ai-sorting.png"
+  }
+]
