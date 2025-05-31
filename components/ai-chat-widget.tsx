@@ -44,7 +44,7 @@ export default function AIChatWidget() {
   }
 
   return (
-    <Card className="flex flex-col h-[400px]">
+    <Card className="flex flex-col h-[400px] border-none">
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2">
           <Bot className="h-5 w-5 text-green-500" />

@@ -443,25 +443,22 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="container max-w-md mx-auto px-4 py-8 flex flex-col h-[calc(100vh-6rem)]">
-      <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col h-screen w-full bg-white dark:bg-gray-950">
+      {/* Header Bar */}
+      <header className="border-b border-gray-200 dark:border-gray-800 px-4 py-3 flex items-center justify-between shadow-sm">
+        <div className="flex items-center">
         <Link href="/scan/analysis" passHref>
-          <Button variant="ghost" size="sm">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back
+            <Button variant="ghost" size="icon" className="mr-2">
+              <ArrowLeft className="h-5 w-5" />
           </Button>
         </Link>
         <h1 className="text-xl font-bold">Plastic Assistant</h1>
-        <div className="w-10"></div> {/* Spacer for alignment */}
       </div>
 
       {analysis && (
-        <div className="mb-4">
-          <Card className="p-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <Card className="flex items-center px-3 py-2 gap-2 border-green-200 dark:border-green-800 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-900/30">
               <Badge variant="outline" className="h-6">Type {analysis.recyclingCode}</Badge>
-              <span className="text-sm font-medium truncate">{analysis.plasticType}</span>
-            </div>
+            <span className="text-sm font-medium">{analysis.plasticType}</span>
             <Badge 
               variant={analysis.recyclable ? "default" : "destructive"}
               className="text-xs"
@@ -469,7 +466,16 @@ export default function ChatPage() {
               {analysis.recyclable ? "Recyclable" : "Not Recyclable"}
             </Badge>
           </Card>
-        </div>
+        )}
+      </header>
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col overflow-auto">
+        {error && (
+          <Alert variant="destructive" className="m-4">
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
       )}
 
       <Tabs 
@@ -478,46 +484,39 @@ export default function ChatPage() {
         onValueChange={setActiveTab}
         className="flex-1 flex flex-col"
       >
-        <TabsList className="grid grid-cols-2 mb-2">
+          <TabsList className="mx-4 mt-4 grid grid-cols-2">
           <TabsTrigger value="chat" className="flex items-center gap-1">
-            <MessageSquare className="h-3.5 w-3.5" />
+              <MessageSquare className="h-4 w-4" />
             <span>Chat</span>
           </TabsTrigger>
           <TabsTrigger value="impact" className="flex items-center gap-1">
-            <Leaf className="h-3.5 w-3.5" />
-            <span>Impact</span>
+              <Leaf className="h-4 w-4" />
+              <span>Environmental Impact</span>
           </TabsTrigger>
         </TabsList>
         
-        <TabsContent value="chat" className="flex-1 flex flex-col">
-      {error && (
-        <Alert variant="destructive" className="mb-4">
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-          <ScrollArea className="flex-1 p-3 border rounded-lg bg-gray-50 dark:bg-gray-900" ref={scrollAreaRef}>
-        <div className="space-y-4">
+          <TabsContent value="chat" className="flex-1 flex flex-col pt-4 px-4">
+            <ScrollArea className="flex-1 p-4 border rounded-lg bg-gray-50 dark:bg-gray-900 mb-4 pb-32" ref={scrollAreaRef}>
+              <div className="space-y-6">
           {messages.map((message, index) => (
             <div 
               key={index} 
               className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div 
-                className={`max-w-[80%] px-4 py-3 rounded-lg ${
+                      className={`max-w-[80%] px-5 py-4 rounded-2xl ${
                   message.role === 'user' 
                     ? 'bg-primary text-primary-foreground' 
                     : 'bg-muted'
                 }`}
               >
-                <div className="flex items-center gap-2 mb-1">
+                      <div className="flex items-center gap-2 mb-2">
                   {message.role === 'assistant' ? (
-                    <Bot className="h-4 w-4" />
+                          <Bot className="h-5 w-5" />
                   ) : (
-                    <User className="h-4 w-4" />
+                          <User className="h-5 w-5" />
                   )}
-                  <span className="text-xs font-medium">
+                        <span className="text-sm font-medium">
                     {message.role === 'assistant' ? 'AI Assistant' : 'You'}
                   </span>
                 </div>
@@ -532,13 +531,13 @@ export default function ChatPage() {
           
           {isLoading && (
             <div className="flex justify-start">
-              <div className="max-w-[80%] px-4 py-3 rounded-lg bg-muted">
+                    <div className="max-w-[80%] px-5 py-4 rounded-2xl bg-muted">
                 <div className="flex items-center gap-2">
-                  <Bot className="h-4 w-4" />
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        <Bot className="h-5 w-5" />
+                        <div className="flex gap-1.5">
+                          <div className="w-2.5 h-2.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                          <div className="w-2.5 h-2.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                          <div className="w-2.5 h-2.5 rounded-full bg-gray-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
                   </div>
                 </div>
               </div>
@@ -547,35 +546,36 @@ export default function ChatPage() {
         </div>
       </ScrollArea>
 
-          {/* Sticky input and info at bottom */}
-          <div className="sticky bottom-0 bg-white dark:bg-gray-900 pt-2">
-      <div className="flex gap-2">
+            {/* Input Box */}
+            <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-950 py-4 border-t border-gray-200 dark:border-gray-800 z-10">
+              <div className="flex gap-3 max-w-3xl mx-auto">
         <Input
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Ask a question about this plastic..."
           disabled={isLoading || !!error}
-          className="flex-1"
+                  className="flex-1 h-12 text-base"
         />
         <Button 
           onClick={handleSendMessage} 
           disabled={!inputMessage.trim() || isLoading || !!error}
           size="icon"
+                  className="h-12 w-12"
         >
-          <Send className="h-4 w-4" />
+                  <Send className="h-5 w-5" />
         </Button>
       </div>
-      <div className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-        <p className="flex items-center">
-          <Info className="h-3 w-3 mr-1" />
-          Ask about recycling options, environmental impact, or alternatives
+              <div className="mt-3 text-sm text-gray-500 dark:text-gray-400 text-center">
+                <p className="flex items-center justify-center">
+                  <Info className="h-4 w-4 mr-1.5" />
+                  Ask about recycling options, environmental impact, or safer alternatives
         </p>
       </div>
           </div>
         </TabsContent>
         
-        <TabsContent value="impact" className="flex-1 flex flex-col">
+          <TabsContent value="impact" className="flex-1 flex flex-col pt-4 px-4">
           <div className="border rounded-lg p-4 flex-1 bg-gray-50 dark:bg-gray-900">
             <h2 className="text-lg font-medium mb-4 flex items-center">
               <Leaf className="h-5 w-5 mr-2 text-green-500" />
@@ -600,7 +600,7 @@ export default function ChatPage() {
                   By recycling this {analysis?.plasticType} item, you're making a positive impact on the environment:
                 </p>
                 
-                <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
                   <Card className="p-4 border-green-200 dark:border-green-800 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-900/30">
                     <div className="flex items-center mb-2">
                       <div className="p-2 bg-green-100 dark:bg-green-800 rounded-full">
@@ -615,7 +615,7 @@ export default function ChatPage() {
                     </div>
                   </Card>
                   
-                  <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Card className="p-4 border-blue-200 dark:border-blue-800 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/30">
                       <h3 className="text-sm font-medium mb-1 text-blue-800 dark:text-blue-300">Water Saved</h3>
                       <p className="text-xl font-bold text-blue-700 dark:text-blue-300">
@@ -647,7 +647,7 @@ export default function ChatPage() {
                 </div>
               </div>
             ) : !isLoadingImpact && (
-              <div className="h-full flex flex-col items-center justify-center text-center">
+                <div className="h-full flex flex-col items-center justify-center text-center py-12">
                 <Leaf className="h-12 w-12 text-gray-300 dark:text-gray-600 mb-4" />
                 <h3 className="text-lg font-medium text-gray-500 dark:text-gray-400">No impact data yet</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-500 max-w-xs mt-2">
@@ -666,6 +666,7 @@ export default function ChatPage() {
           </div>
         </TabsContent>
       </Tabs>
+      </main>
     </div>
   )
 } 

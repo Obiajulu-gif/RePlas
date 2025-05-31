@@ -58,7 +58,7 @@ export class GeminiAIClient implements GeminiClient {
     try {
       const genAI = new GoogleGenerativeAI(apiKey as string);
       // Initialize the Gemini 1.5 Pro model for text chat
-      this.model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro' });
+      this.model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
       
       // Initialize the Gemini model for image analysis (1.5 Pro has multimodal capabilities)
       this.geminiVisionModel = genAI.getGenerativeModel({
@@ -75,7 +75,7 @@ export class GeminiAIClient implements GeminiClient {
         ],
       });
       
-      console.log('Successfully initialized Gemini client with models: gemini-1.5-pro (text), gemini-2.0-flash (vision)');
+      console.log('Successfully initialized Gemini client with models: gemini-2.0-flash (text), gemini-2.0-flash (vision)');
     } catch (error) {
       console.error('Failed to initialize Gemini client:', error);
     }
