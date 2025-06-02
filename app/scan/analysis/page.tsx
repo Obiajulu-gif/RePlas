@@ -280,16 +280,16 @@ export default function AnalysisPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 to-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-white to-green-50 dark:from-gray-900 dark:to-green-950/30 flex flex-col">
       {/* Navigation header */}
       <div className="w-full px-6 py-5 flex items-center justify-between">
           <Link href="/scan/weight" passHref>
-          <Button variant="ghost" size="sm" className="text-gray-300 hover:text-white hover:bg-gray-800">
+          <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800 hover:bg-white/50 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:bg-gray-800/50 backdrop-blur-sm rounded-xl">
             <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
           </Link>
-        <h1 className="text-xl font-bold text-white">Analysis Results</h1>
+        <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Analysis Results</h1>
           <div className="w-10"></div> {/* Spacer for alignment */}
         </div>
         
