@@ -82,7 +82,7 @@ export default function PartnersSection() {
 
           <div className={cn("flex items-center gap-12 w-max animate-marquee", mounted ? "opacity-100" : "opacity-0")}>
             {partners.map((partner, index) => (
-              <div key={index} className="flex justify-center px-4">
+              <div key={index} className="flex-shrink-0 flex justify-center px-4">
                 <SafeImage
                   src={partner.logo}
                   alt={partner.name}
