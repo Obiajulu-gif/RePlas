@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
     
     // Initialize the Gemini 2.0 Flash model for chat - faster responses with good quality
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       safetySettings: [
         {
           category: HarmCategory.HARM_CATEGORY_HARASSMENT,
