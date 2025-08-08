@@ -112,7 +112,7 @@ export function Navbar() {
             <span className="font-bold text-emerald-600 dark:text-emerald-400">RePlas</span>
           </Link>
         </div>
-        <div className="hidden md:flex md:flex-1 md:items-center md:justify-between md:space-x-4">
+        <div className="hidden md:flex md:flex-1 md:items-center md:justify-between">
           <nav className="flex items-center space-x-2">
             {routes.map((route) => (
               <Button

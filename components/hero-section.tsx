@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Play, ChevronDown } from "lucide-react"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { SafeImage } from "@/components/ui/safe-image"
+import InteractiveGlobe from "./interactive-globe"
 
 export default function HeroSection() {
   const [videoOpen, setVideoOpen] = useState(false)
@@ -130,21 +131,21 @@ export default function HeroSection() {
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 <SafeImage
-                  src="/user-avatar-1.png"
+                  source="/user-avatar-1.png"
                   alt="User"
                   width={32}
                   height={32}
                   className="rounded-full border-2 border-background"
                 />
                 <SafeImage
-                  src="/user-avatar-2.png"
+                  source="/user-avatar-2.png"
                   alt="User"
                   width={32}
                   height={32}
                   className="rounded-full border-2 border-background"
                 />
                 <SafeImage
-                  src="/user-avatar-3.png"
+                  source="/user-avatar-3.png"
                   alt="User"
                   width={32}
                   height={32}
@@ -158,34 +159,8 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div
-            className={`relative aspect-video rounded-xl overflow-hidden shadow-2xl ${isVisible ? "fade-in-right" : "opacity-0"}`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-600/20 to-transparent z-10"></div>
-            {imagesLoaded ? (
-              <SafeImage
-                src="/sustainable-recycling-hero.png"
-                alt="Plastic waste management with blockchain technology"
-                fill
-                className="object-cover transition-transform hover:scale-105 duration-700"
-                priority
-              />
-            ) : (
-              <div className="w-full h-full bg-muted animate-pulse"></div>
-            )}
-            <div className="absolute bottom-4 left-4 right-4 bg-background/80 backdrop-blur-sm p-4 rounded-lg z-20">
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-emerald-600/20 flex items-center justify-center">
-                  <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-medium">Transparent Supply Chain</h3>
-                  <p className="text-sm text-muted-foreground">Track plastic from collection to recycling</p>
-                </div>
-              </div>
-            </div>
+          <div className={`relative ${isVisible ? "fade-in-right" : "opacity-0"}`}>
+            <InteractiveGlobe />
           </div>
         </div>
 

@@ -21,7 +21,7 @@ export default function RecyclingProcess3D() {
       dpr={[1, 2]} // Limit pixel ratio for better performance
     >
       <Suspense fallback={null}>
-        <Environment preset="city" />
+        <Environment preset="sunset" />
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
 

@@ -19,11 +19,6 @@ const PlasticToken = dynamic(() => import("@/components/3d-plastic-token"), {
   ),
 })
 
-const EconomicEngine3D = dynamic(() => import("@/components/economic-engine-3d"), {
-  ssr: false,
-  loading: () => <Skeleton className="w-full h-[300px] rounded-lg" />,
-})
-
 export default function Tokenomics() {
   const [mounted, setMounted] = useState(false)
 
@@ -62,19 +57,25 @@ export default function Tokenomics() {
   return (
     <section className="py-20 md:py-24 lg:py-32" id="tokenomics">
       <div className="container">
-        <AnimatedElement id="tokenomics-heading" animation="fade-in-up" className="text-center max-w-3xl mx-auto mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">The Economic Engine of Sustainability</h2>
-          <p className="text-xl text-muted-foreground">
-            Our token system creates economic incentives for sustainable plastic management
-          </p>
-        </AnimatedElement>
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+          <AnimatedElement id="tokenomics-heading" animation="fade-in-left" className="text-left">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">The Economic Engine of Sustainability</h2>
+            <p className="text-xl text-muted-foreground">
+              Our token system creates economic incentives for sustainable plastic management, turning waste into a valuable asset. We foster a circular economy where every participant is rewarded for their contribution.
+            </p>
+          </AnimatedElement>
 
-        {/* Economic Engine 3D Animation */}
-        <AnimatedElement id="economic-engine-3d" animation="fade-in" className="mb-16">
-          <div className="bg-card rounded-lg shadow-lg p-6 overflow-hidden">
-            {mounted && <EconomicEngine3D height={300} />}
-          </div>
-        </AnimatedElement>
+          <AnimatedElement id="tokenomics-visual" animation="fade-in-right">
+            <div className="relative aspect-square rounded-xl overflow-hidden shadow-2xl bg-gradient-to-br from-emerald-500/10 to-background">
+              <Image
+                src="/sustainable-packaging-logo.png"
+                alt="Economic Engine of Sustainability"
+                fill
+                className="object-contain p-8 drop-shadow-2xl" 
+              />
+            </div>
+          </AnimatedElement>
+        </div>
 
         <div className="grid md:grid-cols-5 gap-8 mb-16">
           <div className="md:col-span-2 flex items-center justify-center">
